@@ -557,7 +557,7 @@ public class Transaksi extends javax.swing.JFrame {
         tampilData(cr.getHasil(0));                
     }
 
-    private void tampilData(String kode) {
+    private void tampilData(String kode) {        
         try {
             rsTmp = kn.stmt.executeQuery("select * from vw_santri where NIS ='"+kode+"'");
             
