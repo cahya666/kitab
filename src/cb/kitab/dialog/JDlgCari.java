@@ -79,7 +79,7 @@ public class JDlgCari extends javax.swing.JDialog {
         jTFcari = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTblCari = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnCari = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -105,10 +105,10 @@ public class JDlgCari extends javax.swing.JDialog {
         jTblCari.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTblCari);
 
-        jButton1.setText("Pilih");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCari.setText("Pilih");
+        btnCari.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCariActionPerformed(evt);
             }
         });
 
@@ -118,7 +118,7 @@ public class JDlgCari extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(476, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(btnCari)
                 .addGap(10, 10, 10))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -135,7 +135,7 @@ public class JDlgCari extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnCari)
                 .addContainerGap())
         );
 
@@ -152,12 +152,10 @@ public class JDlgCari extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_jTFcariActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        //JOptionPane.showMessageDialog(rootPane, "ok", "peringatan", JOptionPane.INFORMATION_MESSAGE);
-        //this.dispose();
+    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
         System.out.println(getHasil(0));
         this.dispose();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCariActionPerformed
 
     private void jTFcariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFcariKeyPressed
         //Up
@@ -193,7 +191,7 @@ public class JDlgCari extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnCari;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTFcari;
     private javax.swing.JTable jTblCari;

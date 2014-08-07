@@ -17,6 +17,7 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import cb.kitab.dialog.JDlgCari;
+import javax.swing.table.TableColumn;
 
 /**
  *
@@ -44,14 +45,7 @@ public class Transaksi extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         txNis = new javax.swing.JTextField();
-        jLbNama = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLbKamar = new javax.swing.JLabel();
-        jLbKelas = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTblTrans = new javax.swing.JTable();
         jLbTotal = new javax.swing.JLabel();
@@ -60,8 +54,18 @@ public class Transaksi extends javax.swing.JFrame {
         jLbBayar = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         txKembali = new javax.swing.JTextField();
-        jLbnis = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        jLbnis = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLbNama = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLbKelasLama = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLbKamar = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLbKelasBaru = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Transaksi");
@@ -71,11 +75,6 @@ public class Transaksi extends javax.swing.JFrame {
                 formKeyPressed(evt);
             }
         });
-
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel1.setLabelFor(txNis);
-        jLabel1.setText("NIS");
 
         txNis.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txNis.addActionListener(new java.awt.event.ActionListener() {
@@ -89,30 +88,6 @@ public class Transaksi extends javax.swing.JFrame {
             }
         });
 
-        jLbNama.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLbNama.setText("Nama");
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel3.setLabelFor(jLbNama);
-        jLabel3.setText("Nama");
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel4.setLabelFor(jLbKamar);
-        jLabel4.setText("Kamar");
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel6.setLabelFor(jLbKelas);
-        jLabel6.setText("Kelas");
-
-        jLbKamar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLbKamar.setText("Kamar");
-
-        jLbKelas.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLbKelas.setText("Kelas");
-
         jTblTrans.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jTblTrans.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -123,7 +98,7 @@ public class Transaksi extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -135,6 +110,10 @@ public class Transaksi extends javax.swing.JFrame {
         jTblTrans.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTblTrans);
         jTblTrans.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        if (jTblTrans.getColumnModel().getColumnCount() > 0) {
+            jTblTrans.getColumnModel().getColumn(0).setPreferredWidth(3);
+            jTblTrans.getColumnModel().getColumn(2).setResizable(false);
+        }
 
         jLbTotal.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLbTotal.setForeground(java.awt.Color.red);
@@ -149,7 +128,6 @@ public class Transaksi extends javax.swing.JFrame {
         txBayar.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txBayar.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         txBayar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        txBayar.setFocusable(false);
         txBayar.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txBayarCaretUpdate(evt);
@@ -189,10 +167,106 @@ public class Transaksi extends javax.swing.JFrame {
             }
         });
 
+        jLabel2.setText("| F2 : Cari Siswa | F3 : Batalkan Transaksi |");
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel1.setLabelFor(txNis);
+        jLabel1.setText("NIS");
+
         jLbnis.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLbnis.setText("NIS");
 
-        jLabel2.setText("| F2 : Cari Siswa | F3 : Batalkan Transaksi |");
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel3.setLabelFor(jLbNama);
+        jLabel3.setText("Nama");
+
+        jLbNama.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbNama.setText("Nama");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel6.setLabelFor(jLbKelasLama);
+        jLabel6.setText("Kelas Lama");
+
+        jLbKelasLama.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbKelasLama.setText("Kelas Lama");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel4.setLabelFor(jLbKamar);
+        jLabel4.setText("Kamar");
+
+        jLbKamar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbKamar.setText("Kamar");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel8.setLabelFor(jLbKelasLama);
+        jLabel8.setText("Kelas Baru");
+
+        jLbKelasBaru.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbKelasBaru.setText("Kelas Baru");
+        jLbKelasBaru.setMaximumSize(new java.awt.Dimension(34, 22));
+        jLbKelasBaru.setMinimumSize(new java.awt.Dimension(34, 22));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGap(68, 68, 68)
+                                        .addComponent(jLbnis, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel4)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLbKamar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel8)))
+                            .addComponent(jLabel1))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLbKelasBaru, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLbKelasLama, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(23, 23, 23)
+                        .addComponent(jLbNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLbnis)
+                            .addComponent(jLbKelasLama)
+                            .addComponent(jLabel6))
+                        .addGap(28, 28, 28))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(jLabel4)
+                        .addComponent(jLbKamar)
+                        .addComponent(jLbKelasBaru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLbNama)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -214,27 +288,11 @@ public class Transaksi extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLbBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel3))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                                            .addComponent(jLbNama, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLbKelas, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLbnis, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLbKamar, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLbTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLbTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -242,32 +300,15 @@ public class Transaksi extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(12, 12, 12)
                 .addComponent(txNis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLbnis))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLbNama))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLbKamar)))
-                            .addComponent(jLbKelas)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLbTotal, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLbTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -288,12 +329,11 @@ public class Transaksi extends javax.swing.JFrame {
 
     private void txNisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNisActionPerformed
         if (txNis.getText().equals("")){
-            txBayar.selectAll();
+            txBayar.requestFocus();
             return;
         }
         
-        tampilData(txNis.getText());
-        
+        tampilData(txNis.getText());        
     }//GEN-LAST:event_txNisActionPerformed
 
     private void txBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txBayarActionPerformed
@@ -394,12 +434,15 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLbBayar;
     private javax.swing.JLabel jLbKamar;
-    private javax.swing.JLabel jLbKelas;
+    private javax.swing.JLabel jLbKelasBaru;
+    private javax.swing.JLabel jLbKelasLama;
     private javax.swing.JLabel jLbNama;
     private javax.swing.JLabel jLbTotal;
     private javax.swing.JLabel jLbnis;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTblTrans;
     private javax.swing.JTextField txBayar;
@@ -420,7 +463,7 @@ public class Transaksi extends javax.swing.JFrame {
         jTblTrans.setModel(tbl);
         */
                 
-        rsShow = kn.stmt.executeQuery("select * from tb_matpel where id_kelas ='"+_id+"' order by PID");
+        rsShow = kn.stmt.executeQuery("select * from vwPaketKitab where idPaket ='"+_id+"' order by PID");
             while (rsShow.next()){
                 tbl.addRow(new Object[]{
                 new Integer(no++),
@@ -463,11 +506,23 @@ public class Transaksi extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        
+        //jTblTrans.getColumnModel().getColumn(4).setPreferredWidth(0);
+        /*
         jTblTrans.getColumnModel().getColumn(4).setMaxWidth(-1);
         jTblTrans.getColumnModel().getColumn(4).setMinWidth(-1);        
         jTblTrans.getColumnModel().getColumn(4).setMaxWidth(-1);
+*/
+        int[] columnsWidth = {
+                50, 75, 400, 100, 0
+        };
 
+        int i = 0;
+        for (int width : columnsWidth) {
+            TableColumn column = jTblTrans.getColumnModel().getColumn(i++);
+            column.setMinWidth(width);
+            column.setMaxWidth(width);
+            column.setPreferredWidth(width);
+        }       
     }
 
     @SuppressWarnings("empty-statement")
@@ -534,16 +589,15 @@ public class Transaksi extends javax.swing.JFrame {
     private void _bersih() {
         jLbnis.setText("");
         jLbNama.setText("");
-        jLbKelas.setText("");
+        jLbKelasLama.setText("");
+        jLbKelasBaru.setText("");
         jLbKamar.setText("");
         jLbTotal.setText("");
 
         jLbTotal.setText("Total");
 
         txNis.setText("");
-        txNis.setFocusable(true);
         txBayar.setText("");
-        txBayar.setFocusable(false);
 
         jLbBayar.setText("0");
         
@@ -564,12 +618,11 @@ public class Transaksi extends javax.swing.JFrame {
             if (rsTmp.last()){
                 jLbnis.setText(rsTmp.getString("NIS"));
                 jLbNama.setText(rsTmp.getString("Nama"));
-                jLbKelas.setText(rsTmp.getString("Kelas"));
+                jLbKelasLama.setText(rsTmp.getString("KelasLama"));
+                jLbKelasBaru.setText(rsTmp.getString("KelasBaru"));
                 jLbKamar.setText(rsTmp.getString("Kamar"));
-                tampilKitab(rsTmp.getString("id_kelas"));
-                txBayar.setFocusable(true);
+                tampilKitab(rsTmp.getString("idPaket"));
                 jLbBayar.setText("0");
-                txNis.setFocusable(false);
             } else {
                 _bersih();
                 JOptionPane.showMessageDialog(rootPane, "Data tidak ditemukan", "Not Found", 
