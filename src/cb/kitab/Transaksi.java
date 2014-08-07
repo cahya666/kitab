@@ -346,10 +346,14 @@ public class Transaksi extends javax.swing.JFrame {
     }//GEN-LAST:event_txNisActionPerformed
 
     private void txBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txBayarActionPerformed
+        if (hitungTotal() == 0) {
+            return;            
+        }
+        
         if (jLbBayar.getForeground()==Color.green){
             Integer total,bayar,kembali;
             total = hitungTotal();
-            bayar = Integer.parseInt(txBayar.getText());
+            bayar = tryParseInt(txBayar.getText());
             kembali=  bayar - total;
 
             if (total > bayar){
