@@ -17,6 +17,9 @@ import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import cb.kitab.dialog.JDlgCari;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.text.DecimalFormat;
 import javax.swing.table.TableColumn;
 
 /**
@@ -26,16 +29,40 @@ import javax.swing.table.TableColumn;
 public class Transaksi extends javax.swing.JFrame {
     private final Koneksi kn = new Koneksi();
     private ResultSet rsTmp,rsExe,rsShow;
+    private DecimalFormat numFormat = new DecimalFormat("#,###,###");
 
     /**
      * Creates new form Menu
      */
     public Transaksi() {
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new MyDispatcher());
+
         initComponents();
         setLocationRelativeTo(null);
         _bersih();
     }
-
+    
+    private class MyDispatcher implements KeyEventDispatcher {
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+                if (e.getKeyCode() == KeyEvent.VK_F2){
+                    cariSantri();
+                }
+                                
+                if (e.getKeyCode() ==KeyEvent.VK_F3){
+                    _bersih();
+                }
+            } else if (e.getID() == KeyEvent.KEY_RELEASED) {
+//                System.out.println("2test2");
+            } else if (e.getID() == KeyEvent.KEY_TYPED) {
+//                System.out.println("3test3");
+            }
+            return false;
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -70,21 +97,11 @@ public class Transaksi extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Transaksi");
         setState(6);
-        addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                formKeyPressed(evt);
-            }
-        });
 
         txNis.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         txNis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txNisActionPerformed(evt);
-            }
-        });
-        txNis.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txNisKeyPressed(evt);
             }
         });
 
@@ -138,11 +155,6 @@ public class Transaksi extends javax.swing.JFrame {
                 txBayarActionPerformed(evt);
             }
         });
-        txBayar.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txBayarKeyPressed(evt);
-            }
-        });
 
         jLbBayar.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
         jLbBayar.setForeground(java.awt.Color.green);
@@ -169,44 +181,44 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLabel2.setText("| F2 : Cari Siswa | F3 : Batalkan Transaksi |");
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 153));
         jLabel1.setLabelFor(txNis);
-        jLabel1.setText("NIS");
+        jLabel1.setText("NIS  :");
 
-        jLbnis.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbnis.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLbnis.setText("NIS");
 
-        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setLabelFor(jLbNama);
-        jLabel3.setText("Nama");
+        jLabel3.setText("Nama :");
 
-        jLbNama.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbNama.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLbNama.setText("Nama");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 153));
         jLabel6.setLabelFor(jLbKelasLama);
-        jLabel6.setText("Kelas Lama");
+        jLabel6.setText("Kelas Lama:");
 
-        jLbKelasLama.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbKelasLama.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLbKelasLama.setText("Kelas Lama");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setLabelFor(jLbKamar);
-        jLabel4.setText("Kamar");
+        jLabel4.setText("Kamar:");
 
-        jLbKamar.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbKamar.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLbKamar.setText("Kamar");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 153));
         jLabel8.setLabelFor(jLbKelasLama);
-        jLabel8.setText("Kelas Baru");
+        jLabel8.setText("Kelas Baru:");
 
-        jLbKelasBaru.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLbKelasBaru.setFont(new java.awt.Font("Courier New", 1, 18)); // NOI18N
         jLbKelasBaru.setText("Kelas Baru");
         jLbKelasBaru.setMaximumSize(new java.awt.Dimension(34, 22));
         jLbKelasBaru.setMinimumSize(new java.awt.Dimension(34, 22));
@@ -220,27 +232,23 @@ public class Transaksi extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(68, 68, 68)
-                                        .addComponent(jLbnis, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLbKamar, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel8)))
+                            .addComponent(jLabel4)
                             .addComponent(jLabel1))
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLbKelasBaru, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLbKelasLama, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)))
+                            .addComponent(jLbnis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLbKamar, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLbKelasLama, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                            .addComponent(jLbKelasBaru, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addGap(23, 23, 23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLbNama, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -261,7 +269,6 @@ public class Transaksi extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addComponent(jLbKamar)
                         .addComponent(jLbKelasBaru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLbNama)
                     .addComponent(jLabel3))
@@ -285,14 +292,14 @@ public class Transaksi extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLbBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(185, 185, 185)
+                        .addComponent(jLbBayar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLbTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLbTotal, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -308,7 +315,7 @@ public class Transaksi extends javax.swing.JFrame {
                         .addComponent(jLbTotal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -330,6 +337,8 @@ public class Transaksi extends javax.swing.JFrame {
     private void txNisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txNisActionPerformed
         if (txNis.getText().equals("")){
             txBayar.requestFocus();
+            txBayar.selectAll();
+                    
             return;
         }
         
@@ -339,18 +348,19 @@ public class Transaksi extends javax.swing.JFrame {
     private void txBayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txBayarActionPerformed
         if (jLbBayar.getForeground()==Color.green){
             Integer total,bayar,kembali;
-            total = Integer.parseInt(jLbTotal.getText());
+            total = hitungTotal();
             bayar = Integer.parseInt(txBayar.getText());
             kembali=  bayar - total;
 
             if (total > bayar){
                 JOptionPane.showMessageDialog(rootPane, "pembayaran tidak cukup...");
+                txBayar.selectAll();
                 txKembali.setText("0");
                 return;
             }
 
             jLbBayar.setForeground(Color.blue);
-            txKembali.setText(Integer.toString(kembali)); 
+            txKembali.setText(numFormat.format(kembali)); 
         } else
         if (jLbBayar.getForeground()==Color.blue){
             simpanData();
@@ -362,34 +372,25 @@ public class Transaksi extends javax.swing.JFrame {
             jLbBayar.setText(txKembali.getText());            
     }//GEN-LAST:event_txKembaliCaretUpdate
 
+    int tryParseInt(String value) { 
+        try {  
+            return Integer.parseInt(value);  
+        } catch(NumberFormatException nfe) {  
+            return 0;
+        }  
+}
     private void txBayarCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txBayarCaretUpdate
         txKembali.setText("0");
         jLbBayar.setForeground(Color.green);
+        
         if (txBayar.getText().equals("")) {
             jLbBayar.setText("0");            
         } else {
-            jLbBayar.setText(txBayar.getText());
+            jLbBayar.setText(numFormat.format(tryParseInt(txBayar.getText())));
+            //jLbBayar.setText(txBayar.getText());
         }
 
     }//GEN-LAST:event_txBayarCaretUpdate
-
-    private void formKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyPressed
-        // TODO add your handling code here:
-        System.out.println(evt);
-    }//GEN-LAST:event_formKeyPressed
-
-    private void txNisKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txNisKeyPressed
-        if (evt.getKeyCode()==KeyEvent.VK_F2){
-            cariSantri();
-        }
-    }//GEN-LAST:event_txNisKeyPressed
-
-    private void txBayarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txBayarKeyPressed
-                
-        if (evt.getKeyCode()==KeyEvent.VK_F3){
-            _bersih();
-        }
-    }//GEN-LAST:event_txBayarKeyPressed
 
     /**
      * @param args the command line arguments
@@ -475,8 +476,8 @@ public class Transaksi extends javax.swing.JFrame {
                 
                 jTblTrans.setModel(tbl);
             }
-        jLbTotal.setText(Integer.toString(hitungTotal()));
-        
+            
+            jLbTotal.setText(numFormat.format(hitungTotal()));        
     }
 
     private Integer hitungTotal() {
@@ -506,14 +507,9 @@ public class Transaksi extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        //jTblTrans.getColumnModel().getColumn(4).setPreferredWidth(0);
-        /*
-        jTblTrans.getColumnModel().getColumn(4).setMaxWidth(-1);
-        jTblTrans.getColumnModel().getColumn(4).setMinWidth(-1);        
-        jTblTrans.getColumnModel().getColumn(4).setMaxWidth(-1);
-*/
+
         int[] columnsWidth = {
-                50, 75, 400, 100, 0
+                50, 75, 470, 100, 0
         };
 
         int i = 0;
@@ -571,7 +567,7 @@ public class Transaksi extends javax.swing.JFrame {
         kn.conn.setAutoCommit(false);
         
         kn.stmt.executeUpdate("insert into tb_jual_global(id_Trans,Tanggal,jam,NIS,Total) values "+
-                "('"+_id+"',date(now()),time(now()),'"+jLbnis.getText()+"','"+jLbTotal.getText()+"')");
+                "('"+_id+"',date(now()),time(now()),'"+jLbnis.getText()+"','"+Integer.toString(hitungTotal())+"')");
         
         kn.stmt.executeUpdate("insert into tb_jual_rinci(id_Trans,no,PID,HPP,Harga) values "+_isi );
         
@@ -596,16 +592,18 @@ public class Transaksi extends javax.swing.JFrame {
 
         jLbTotal.setText("Total");
 
+        txNis.requestFocus();
         txNis.setText("");
-        txBayar.setText("");
-
+        txBayar.setText("0");
+        
         jLbBayar.setText("0");
         
         clearTable();
     }
 
     private void cariSantri() {
-        JDlgCari cr = new JDlgCari(this, true,"select * from vw_santri","Nama");
+        txNis.requestFocus();
+        JDlgCari cr = new JDlgCari(this, true,"select NIS,Nama,Kamar,KelasLama,KelasBaru from vw_santri","Nama");
         cr.setTitle("Cari Siswa");
         cr.setVisible(true);
         tampilData(cr.getHasil(0));                
