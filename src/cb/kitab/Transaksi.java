@@ -610,7 +610,9 @@ public class Transaksi extends javax.swing.JFrame {
         JDlgCari cr = new JDlgCari(this, true,"select NIS,Nama,Kamar,KelasLama,KelasBaru from vw_santri","Nama");
         cr.setTitle("Cari Siswa");
         cr.setVisible(true);
-        tampilData(cr.getHasil(0));                
+        if (cr.dicari()){
+            tampilData(cr.getHasil(0));
+        }
     }
 
     private void tampilData(String kode) {        

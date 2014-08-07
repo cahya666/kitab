@@ -6,11 +6,18 @@
 
 package cb.kitab.dialog;
 
+import cb.kitab.Transaksi;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import cb.kitab.utils.Koneksi;
+import cb.kitab.utils.ListTableModel;
+import java.awt.KeyEventDispatcher;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,6 +28,7 @@ public class JDlgCari extends javax.swing.JDialog {
     private ResultSet rs;
     protected String _query;
     protected String filter;
+    protected boolean ketemu;
 
     /**
      * Creates new form JDlgCari
@@ -33,6 +41,10 @@ public class JDlgCari extends javax.swing.JDialog {
     public JDlgCari(java.awt.Frame parent, boolean modal,String sql,String filter) {
         super(parent, modal);
         lookandfeels();
+
+        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
+        manager.addKeyEventDispatcher(new MyDispatcher());
+        
         initComponents();
         setLocationRelativeTo(null);
         
@@ -40,8 +52,28 @@ public class JDlgCari extends javax.swing.JDialog {
         this.filter = filter;
         allData();
     }    
+    private class MyDispatcher implements KeyEventDispatcher {
+        
+        @Override
+        public boolean dispatchKeyEvent(KeyEvent e) {
+            if (e.getID() == KeyEvent.KEY_PRESSED) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER){
+                    temukan();
+                }
+                                
+                if (e.getKeyCode() ==KeyEvent.VK_ESCAPE){
+                    keluarkan();
+                }
+            } else if (e.getID() == KeyEvent.KEY_RELEASED) {
+//                System.out.println("2test2");
+            } else if (e.getID() == KeyEvent.KEY_TYPED) {
+//                System.out.println("3test3");
+            }
+            return false;
+        }
+    }
 
-        private void lookandfeels(){
+    private void lookandfeels(){
            /* Set the Nimbus look and feel */
        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -66,7 +98,20 @@ public class JDlgCari extends javax.swing.JDialog {
         //</editor-fold>
 
     }
+    
+    private void temukan() {
+        this.ketemu = true;
+        this.dispose();
+    }
+    
+    private void keluarkan() {
+        this.dispose();
+    }
 
+    public boolean dicari(){
+        return this.ketemu;        
+    }
+            
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,28 +134,16 @@ public class JDlgCari extends javax.swing.JDialog {
                 jTFcariCaretUpdate(evt);
             }
         });
-        jTFcari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTFcariActionPerformed(evt);
-            }
-        });
         jTFcari.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTFcariKeyPressed(evt);
             }
         });
 
-        jTblCari.setToolTipText("");
-        jTblCari.setEnabled(false);
         jTblCari.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTblCari);
 
         btnCari.setText("Pilih");
-        btnCari.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCariActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -146,16 +179,6 @@ public class JDlgCari extends javax.swing.JDialog {
         cariData(jTFcari.getText());
         //        System.out.println(jTFcari.getText());
     }//GEN-LAST:event_jTFcariCaretUpdate
-
-    private void jTFcariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFcariActionPerformed
-        System.out.println(getHasil(0));
-        this.dispose();
-    }//GEN-LAST:event_jTFcariActionPerformed
-
-    private void btnCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCariActionPerformed
-        System.out.println(getHasil(0));
-        this.dispose();
-    }//GEN-LAST:event_btnCariActionPerformed
 
     private void jTFcariKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFcariKeyPressed
         //Up
@@ -199,7 +222,7 @@ public class JDlgCari extends javax.swing.JDialog {
 
         private void cariData(String text) {
         try {
-            rs= kn.stmt.executeQuery(_query+" where "+filter+" like '%"+text+"%'");
+            rs= kn.stmt.executeQuery(_query+" where "+filter+" like '%"+text+"%' LIMIT 50");
             tampilTable(rs);
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -209,7 +232,7 @@ public class JDlgCari extends javax.swing.JDialog {
 
     private void allData() {
         try {
-            rs= kn.stmt.executeQuery(_query);
+            rs= kn.stmt.executeQuery(_query+  " LIMIT 50");
             tampilTable(rs);
         } catch (SQLException ex) {
             System.out.println(ex);
@@ -218,30 +241,9 @@ public class JDlgCari extends javax.swing.JDialog {
     }
 
     private void tampilTable(ResultSet rs) throws SQLException {
-            DefaultTableModel tbl = new DefaultTableModel();
-            Object[][] data;
-            ResultSetMetaData rsmd = rs.getMetaData();
-            for (int i = 1; i < rsmd.getColumnCount()+1; i++) {
-                tbl.addColumn(rsmd.getColumnName(i));
-            }
-            
-            
-            jTblCari.setModel(tbl);
-            while (rs.next()){
-                tbl.addRow(new Object[]{
-                rs.getString(1),
-                rs.getString(2),
-                rs.getString(3),
-                rs.getString(4),
-                new Integer(rs.getInt(5))
-                });
-                
-                jTblCari.setModel(tbl);
-            }
-            if (rs.last()){            
+            ListTableModel tblMdl = ListTableModel.createModelFromResultSet(rs);
+            jTblCari.setModel(tblMdl);
             jTblCari.changeSelection(0, 0, false, false);
-            }
-            
     }
     
     public String getHasil(Integer col){
