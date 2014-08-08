@@ -1,0 +1,715 @@
+
+                     Classic template
+
+  PID          1-001
+  idPaket      11
+  MatPel       FIQIH (FASHOLATAN)
+  HPP          3700
+  Harga        5200
+  Stok         0
+  Barcode2     null
+  Paket        1 Putra/Putri
+  Barcode1     11111111
+  PID          1-002
+  idPaket      11
+  MatPel       QIRO’ATUL KUTUB (SAFINATUN NAJAH)
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        1 Putra/Putri
+  Barcode1     11111111
+  PID          1-003
+  idPaket      11
+  MatPel       AKHLAQ (BIRRUL WALIDAIKUM)
+  HPP          1500
+  Harga        2300
+  Stok         0
+  Barcode2     null
+  Paket        1 Putra/Putri
+  Barcode1     11111111
+
+
+
+
+
+
+
+
+
+
+  07/08/14 23:23                           Page 1 of 17
+
+
+  PID          1-004
+  idPaket      11
+  MatPel       HADITS (BUDI LUHUR)
+  HPP          1500
+  Harga        2300
+  Stok         0
+  Barcode2     null
+  Paket        1 Putra/Putri
+  Barcode1     11111111
+  PID          1-005
+  idPaket      11
+  MatPel       PEGO (ALA NGALAH)
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        1 Putra/Putri
+  Barcode1     11111111
+  PID          1-006
+  idPaket      11
+  MatPel       TAHSINUL KHOT(ALA NGALAH)
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        1 Putra/Putri
+  Barcode1     11111111
+  PID          2-001
+  idPaket      21
+  MatPel       NAHWU (NAHWU JAWAN)
+  HPP          2500
+  Harga        3300
+  Stok         0
+  Barcode2     null
+  Paket        2 Putra/Putri
+  Barcode1     22221111
+
+
+
+  07/08/14 23:23                           Page 2 of 17
+
+
+  PID          2-002
+  idPaket      21
+  MatPel       PEGON
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        2 Putra/Putri
+  Barcode1     22221111
+  PID          2-003
+  idPaket      21
+  MatPel       AKHLAQ (MATLAB)
+  HPP          1500
+  Harga        2300
+  Stok         0
+  Barcode2     null
+  Paket        2 Putra/Putri
+  Barcode1     22221111
+  PID          2-004
+  idPaket      21
+  MatPel       TAUHID (SULAMUD DIYANAH)
+  HPP          2025
+  Harga        3300
+  Stok         0
+  Barcode2     null
+  Paket        2 Putra/Putri
+  Barcode1     22221111
+  PID          2-005
+  idPaket      21
+  MatPel       FIQIH (MABADIUL FIQHIYAH I)
+  HPP          1500
+  Harga        2300
+  Stok         0
+  Barcode2     null
+  Paket        2 Putra/Putri
+  Barcode1     22221111
+
+
+
+  07/08/14 23:23                           Page 3 of 17
+
+
+  PID          2-006
+  idPaket      21
+  MatPel       QIRO’ATUL KUTUB (SULAM TAUFIQ)
+  HPP          1760
+  Harga        2800
+  Stok         0
+  Barcode2     null
+  Paket        2 Putra/Putri
+  Barcode1     22221111
+  PID          3-001
+  idPaket      31
+  MatPel       MATAN AJURUMIYAH & NADHOM IMRITHI
+  HPP          2250
+  Harga        3200
+  Stok         0
+  Barcode2     null
+  Paket        3 Putra
+  Barcode1     33331111
+  PID          3-002
+  idPaket      31
+  MatPel       IMLA’
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        3 Putra
+  Barcode1     33331111
+  PID          3-003
+  idPaket      31
+  MatPel       BHS. ARAB (MADARIJ DURUSUL AROBIYAH I)
+  HPP          4500
+  Harga        6400
+  Stok         0
+  Barcode2     null
+  Paket        3 Putra
+  Barcode1     33331111
+
+
+
+  07/08/14 23:23                           Page 4 of 17
+
+
+  PID          3-004
+  idPaket      31
+  MatPel       TAJWID (TUHFATUL ATFAL)
+  HPP          1375
+  Harga        2600
+  Stok         0
+  Barcode2     null
+  Paket        3 Putra
+  Barcode1     33331111
+  PID          3-005
+  idPaket      31
+  MatPel       TAFSIR (IBRIZ I)
+  HPP          4760
+  Harga        6500
+  Stok         0
+  Barcode2     null
+  Paket        3 Putra
+  Barcode1     33331111
+  PID          3-006
+  idPaket      31
+  MatPel       AKHLAQ (AKHLAQUL BANIN I)
+  HPP          1875
+  Harga        3200
+  Stok         0
+  Barcode2     null
+  Paket        3 Putra
+  Barcode1     33331111
+  PID          3-008
+  idPaket      31
+  MatPel       FIQIH (MABADIUL FIQHIYAH III)
+  HPP          4500
+  Harga        6100
+  Stok         0
+  Barcode2     null
+  Paket        3 Putra
+  Barcode1     33331111
+
+
+
+  07/08/14 23:23                           Page 5 of 17
+
+
+  PID          3-001
+  idPaket      32
+  MatPel       MATAN AJURUMIYAH & NADHOM IMRITHI
+  HPP          2250
+  Harga        3200
+  Stok         0
+  Barcode2     null
+  Paket        3 Putri
+  Barcode1     33332222
+  PID          3-002
+  idPaket      32
+  MatPel       IMLA’
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        3 Putri
+  Barcode1     33332222
+  PID          3-003
+  idPaket      32
+  MatPel       BHS. ARAB (MADARIJ DURUSUL AROBIYAH I)
+  HPP          4500
+  Harga        6400
+  Stok         0
+  Barcode2     null
+  Paket        3 Putri
+  Barcode1     33332222
+  PID          3-004
+  idPaket      32
+  MatPel       TAJWID (TUHFATUL ATFAL)
+  HPP          1375
+  Harga        2600
+  Stok         0
+  Barcode2     null
+  Paket        3 Putri
+  Barcode1     33332222
+
+
+
+  07/08/14 23:23                           Page 6 of 17
+
+
+  PID          3-005
+  idPaket      32
+  MatPel       TAFSIR (IBRIZ I)
+  HPP          4760
+  Harga        6500
+  Stok         0
+  Barcode2     null
+  Paket        3 Putri
+  Barcode1     33332222
+  PID          3-007
+  idPaket      32
+  MatPel       AKHLAQ (AKHLAQUL BANAT I)
+  HPP          2700
+  Harga        3700
+  Stok         0
+  Barcode2     null
+  Paket        3 Putri
+  Barcode1     33332222
+  PID          3-008
+  idPaket      32
+  MatPel       FIQIH (MABADIUL FIQHIYAH III)
+  HPP          4500
+  Harga        6100
+  Stok         0
+  Barcode2     null
+  Paket        3 Putri
+  Barcode1     33332222
+  PID          4-001
+  idPaket      41
+  MatPel       NAHWU (AWAMILUL JURJAN)
+  HPP          2400
+  Harga        3700
+  Stok         0
+  Barcode2     null
+  Paket        4 Putra
+  Barcode1     44441111
+
+
+
+  07/08/14 23:23                           Page 7 of 17
+
+
+  PID          4-002
+  idPaket      41
+  MatPel       BHS. ARAB (MADARIJ DURUSUL AROBIYAH II)
+  HPP          5000
+  Harga        6600
+  Stok         0
+  Barcode2     null
+  Paket        4 Putra
+  Barcode1     44441111
+  PID          4-003
+  idPaket      41
+  MatPel       AKHLAQ (AKHLAQUL BANIN II)
+  HPP          2500
+  Harga        3700
+  Stok         0
+  Barcode2     null
+  Paket        4 Putra
+  Barcode1     44441111
+  PID          4-005
+  idPaket      41
+  MatPel       KHULASOH NURUL YAQIN II
+  HPP          6425
+  Harga        8800
+  Stok         0
+  Barcode2     null
+  Paket        4 Putra
+  Barcode1     44441111
+  PID          4-006
+  idPaket      41
+  MatPel       TAJWID (MATAN JAZARIYAH)
+  HPP          3025
+  Harga        4200
+  Stok         0
+  Barcode2     null
+  Paket        4 Putra
+  Barcode1     44441111
+
+
+
+  07/08/14 23:23                           Page 8 of 17
+
+
+  PID          4-007
+  idPaket      41
+  MatPel       TAFSIR (IBRIZ II)
+  HPP          4550
+  Harga        6500
+  Stok         0
+  Barcode2     null
+  Paket        4 Putra
+  Barcode1     44441111
+  PID          4-001
+  idPaket      42
+  MatPel       NAHWU (AWAMILUL JURJAN)
+  HPP          2400
+  Harga        3700
+  Stok         0
+  Barcode2     null
+  Paket        4 Putri
+  Barcode1     44442222
+  PID          4-002
+  idPaket      42
+  MatPel       BHS. ARAB (MADARIJ DURUSUL AROBIYAH II)
+  HPP          5000
+  Harga        6600
+  Stok         0
+  Barcode2     null
+  Paket        4 Putri
+  Barcode1     44442222
+  PID          4-004
+  idPaket      42
+  MatPel       AKHLAQ (AKHLAQUL BANAT II)
+  HPP          3675
+  Harga        5200
+  Stok         0
+  Barcode2     null
+  Paket        4 Putri
+  Barcode1     44442222
+
+
+
+  07/08/14 23:23                           Page 9 of 17
+
+
+  PID          4-005
+  idPaket      42
+  MatPel       KHULASOH NURUL YAQIN II
+  HPP          6425
+  Harga        8800
+  Stok         0
+  Barcode2     null
+  Paket        4 Putri
+  Barcode1     44442222
+  PID          4-006
+  idPaket      42
+  MatPel       TAJWID (MATAN JAZARIYAH)
+  HPP          3025
+  Harga        4200
+  Stok         0
+  Barcode2     null
+  Paket        4 Putri
+  Barcode1     44442222
+  PID          4-007
+  idPaket      42
+  MatPel       TAFSIR (IBRIZ II)
+  HPP          4550
+  Harga        6500
+  Stok         0
+  Barcode2     null
+  Paket        4 Putri
+  Barcode1     44442222
+  PID          5-001
+  idPaket      51
+  MatPel       NAHWU (DURROTUL YATIMAH)
+  HPP          3500
+  Harga        4800
+  Stok         0
+  Barcode2     null
+  Paket        5 Putra
+  Barcode1     55551111
+
+
+
+  07/08/14 23:23                          Page 10 of 17
+
+
+  PID          5-002
+  idPaket      51
+  MatPel       AKHLAQ (AKHLAQUL BANIN III)
+  HPP          3500
+  Harga        5300
+  Stok         0
+  Barcode2     null
+  Paket        5 Putra
+  Barcode1     55551111
+  PID          5-004
+  idPaket      51
+  MatPel       KHULASOH NURUL YAQIN 3
+  HPP          3750
+  Harga        5700
+  Stok         0
+  Barcode2     null
+  Paket        5 Putra
+  Barcode1     55551111
+  PID          5-005
+  idPaket      51
+  MatPel       TAJWID (HIDAYATUL MUSTAFID)
+  HPP          2750
+  Harga        4200
+  Stok         0
+  Barcode2     null
+  Paket        5 Putra
+  Barcode1     55551111
+  PID          5-006
+  idPaket      51
+  MatPel       TAFSIR (IBRIZ III)
+  HPP          4760
+  Harga        6500
+  Stok         0
+  Barcode2     null
+  Paket        5 Putra
+  Barcode1     55551111
+
+
+
+  07/08/14 23:23                          Page 11 of 17
+
+
+  PID          5-007
+  idPaket      51
+  MatPel       HADITS (BULUGHUL MAROM)
+  HPP          13475
+  Harga        18500
+  Stok         0
+  Barcode2     null
+  Paket        5 Putra
+  Barcode1     55551111
+  PID          5-001
+  idPaket      52
+  MatPel       NAHWU (DURROTUL YATIMAH)
+  HPP          3500
+  Harga        4800
+  Stok         0
+  Barcode2     null
+  Paket        5 Putri
+  Barcode1     55552222
+  PID          5-003
+  idPaket      52
+  MatPel       AKHLAQ (AKHLAQUL BANAT III)
+  HPP          4100
+  Harga        5800
+  Stok         0
+  Barcode2     null
+  Paket        5 Putri
+  Barcode1     55552222
+  PID          5-004
+  idPaket      52
+  MatPel       KHULASOH NURUL YAQIN 3
+  HPP          3750
+  Harga        5700
+  Stok         0
+  Barcode2     null
+  Paket        5 Putri
+  Barcode1     55552222
+
+
+
+  07/08/14 23:23                          Page 12 of 17
+
+
+  PID          5-005
+  idPaket      52
+  MatPel       TAJWID (HIDAYATUL MUSTAFID)
+  HPP          2750
+  Harga        4200
+  Stok         0
+  Barcode2     null
+  Paket        5 Putri
+  Barcode1     55552222
+  PID          5-006
+  idPaket      52
+  MatPel       TAFSIR (IBRIZ III)
+  HPP          4760
+  Harga        6500
+  Stok         0
+  Barcode2     null
+  Paket        5 Putri
+  Barcode1     55552222
+  PID          5-007
+  idPaket      52
+  MatPel       HADITS (BULUGHUL MAROM)
+  HPP          13475
+  Harga        18500
+  Stok         0
+  Barcode2     null
+  Paket        5 Putri
+  Barcode1     55552222
+  PID          6-001
+  idPaket      61
+  MatPel       NAHWU (IMRITHI)
+  HPP          21600
+  Harga        25900
+  Stok         0
+  Barcode2     null
+  Paket        6 Putra/Putri
+  Barcode1     66661111
+
+
+
+  07/08/14 23:23                          Page 13 of 17
+
+
+  PID          6-002
+  idPaket      61
+  MatPel       HADITS (BULUGHUL MAROM)
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        6 Putra/Putri
+  Barcode1     66661111
+  PID          6-003
+  idPaket      61
+  MatPel       SHOROF (MAQSHUD)
+  HPP          9000
+  Harga        11400
+  Stok         0
+  Barcode2     null
+  Paket        6 Putra/Putri
+  Barcode1     66661111
+  PID          6-004
+  idPaket      61
+  MatPel       TAUHID (TIJANNUD DARORI)
+  HPP          1375
+  Harga        2700
+  Stok         0
+  Barcode2     null
+  Paket        6 Putra/Putri
+  Barcode1     66661111
+  PID          7-001
+  idPaket      71
+  MatPel       NAHWU (ALFIYAH IBNU MALIK I)
+  HPP          16000
+  Harga        20800
+  Stok         0
+  Barcode2     null
+  Paket        W I Putra/Putri
+  Barcode1     77771111
+
+
+
+  07/08/14 23:23                          Page 14 of 17
+
+
+  PID          7-002
+  idPaket      71
+  MatPel       QOWAIDUL I’ROB
+  HPP          2400
+  Harga        3200
+  Stok         0
+  Barcode2     null
+  Paket        W I Putra/Putri
+  Barcode1     77771111
+  PID          7-003
+  idPaket      71
+  MatPel       ILMU HADITS (NADMUL BAIQUNI)
+  HPP          4290
+  Harga        6900
+  Stok         0
+  Barcode2     null
+  Paket        W I Putra/Putri
+  Barcode1     77771111
+  PID          7-004
+  idPaket      71
+  MatPel       TAUHID (FATHUL MAJID I)
+  HPP          3600
+  Harga        5100
+  Stok         0
+  Barcode2     null
+  Paket        W I Putra/Putri
+  Barcode1     77771111
+  PID          7-005
+  idPaket      71
+  MatPel       USHUL FIQIH (MABADI’UL AWALIYAH)
+  HPP          3575
+  Harga        5500
+  Stok         0
+  Barcode2     null
+  Paket        W I Putra/Putri
+  Barcode1     77771111
+
+
+
+  07/08/14 23:23                          Page 15 of 17
+
+
+  PID          8-001
+  idPaket      81
+  MatPel       NAHWU (ALFIYAH IBNU MALIK II)
+  HPP          16000
+  Harga        20800
+  Stok         0
+  Barcode2     null
+  Paket        W II Putra/Putri
+  Barcode1     88881111
+  PID          8-002
+  idPaket      81
+  MatPel       QOIDAH FIQHIYAH (AS-SULAM)
+  HPP          7150
+  Harga        10200
+  Stok         0
+  Barcode2     null
+  Paket        W II Putra/Putri
+  Barcode1     88881111
+  PID          8-003
+  idPaket      81
+  MatPel       TAUHID (FATHUL MAJID II)
+  HPP          0
+  Harga        0
+  Stok         0
+  Barcode2     null
+  Paket        W II Putra/Putri
+  Barcode1     88881111
+  PID          9-001
+  idPaket      91
+  MatPel       BALAGHOH (JAWAHIRUL MAKNUN)
+  HPP          14850
+  Harga        22100
+  Stok         0
+  Barcode2     null
+  Paket        W III Putra/Putri
+  Barcode1     99991111
+
+
+
+  07/08/14 23:23                          Page 16 of 17
+
+
+  PID          9-002
+  idPaket      91
+  MatPel       ILMU HADITS (MANHALUL LATIF)
+  HPP          28600
+  Harga        37700
+  Stok         0
+  Barcode2     null
+  Paket        W III Putra/Putri
+  Barcode1     99991111
+  PID          9-003
+  idPaket      91
+  MatPel       ILMU FALAK (FATHUL ROUF)
+  HPP          2240
+  Harga        3200
+  Stok         0
+  Barcode2     null
+  Paket        W III Putra/Putri
+  Barcode1     99991111
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  07/08/14 23:23                          Page 17 of 17
+
+
