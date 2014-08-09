@@ -6,11 +6,19 @@
 
 package cb.kitab;
 
+import cb.kitab.dialog.EditSantri;
 import cb.kitab.utils.Koneksi;
+import cb.kitab.utils.ListTableModel;
+import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.InputStream;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -37,6 +45,10 @@ public class Santri extends javax.swing.JFrame {
      */
     public Santri() {
         initComponents();
+        setLocationRelativeTo(null);
+        setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
+        _tampilKelas();
+        _cariNama("");
     }
 
     /**
@@ -48,15 +60,74 @@ public class Santri extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txKelas = new javax.swing.JTextField();
+        cbKelas = new javax.swing.JComboBox();
+        btnLihat = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
+        txCariNama = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        sp = new javax.swing.JScrollPane();
+        tblSantri = new javax.swing.JTable();
+        btnCetakAll = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnBaru = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        cbKelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        btnLihat.setText("Lihat");
+        btnLihat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLihatActionPerformed(evt);
+            }
+        });
 
         btnCetak.setText("Cetak");
         btnCetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCetakActionPerformed(evt);
+            }
+        });
+
+        txCariNama.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txCariNamaActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Cari Nama");
+
+        tblSantri.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        sp.setViewportView(tblSantri);
+
+        btnCetakAll.setText("Cetak All");
+        btnCetakAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCetakAllActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnBaru.setText("Baru");
+        btnBaru.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBaruActionPerformed(evt);
             }
         });
 
@@ -66,49 +137,80 @@ public class Santri extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txKelas)
-                    .addComponent(btnCetak, javax.swing.GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE))
-                .addContainerGap(241, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(8, 8, 8)
+                        .addComponent(txCariNama)
+                        .addGap(9, 9, 9)
+                        .addComponent(btnCetakAll))
+                    .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(cbKelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLihat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnCetak))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnBaru)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEdit)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLihat)
+                    .addComponent(btnCetak))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txCariNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(btnCetakAll))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCetak)
-                .addContainerGap(240, Short.MAX_VALUE))
+                .addComponent(sp, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEdit)
+                    .addComponent(btnBaru))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnLihatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLihatActionPerformed
+        _lihatKelas((String) cbKelas.getSelectedItem());        
+    }//GEN-LAST:event_btnLihatActionPerformed
+
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-        // TODO add your handling code here:
-        String path = System.getProperties().getProperty("java.class.path")
-                .split(";")[System.getProperties().getProperty("java.class.path")
-                .split(";").length - 1] + "/";
-        try {
-            File file = new File(path+"cb/kitab/laporan/kelas.jrxml");
-            jasperDesign = JRXmlLoader.load(file);
-            param.clear();
-            
-            String SQL = "SELECT * from tb_santri where KelasBaru ='"+txKelas.getText()+"'";
-            
-            rs = kn.stmt.executeQuery(SQL);  
-
-            JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);            
-            jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            jasperPrint = JasperFillManager.fillReport(jasperReport, param, jrRS);
-            
-            JasperViewer.viewReport(jasperPrint, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        // TODO add your handling code here:
+        String SQL = "SELECT * from vw_santri where KelasBaru ='"+cbKelas.getSelectedItem().toString()+"'";
+        _cetakSiswa(SQL,"kelas.jrxml");
     }//GEN-LAST:event_btnCetakActionPerformed
+
+    private void txCariNamaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txCariNamaActionPerformed
+        _cariNama(txCariNama.getText());
+    }//GEN-LAST:event_txCariNamaActionPerformed
+
+    private void btnCetakAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakAllActionPerformed
+        String SQL = "SELECT * from vw_santri";
+        _cetakSiswa(SQL,"kelasAll.jrxml");
+    }//GEN-LAST:event_btnCetakAllActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        EditSantri es= new EditSantri(this, true, false, 
+                (String) tblSantri.getValueAt(tblSantri.getSelectedRow(), 0));
+        es.setVisible(true);
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
+        EditSantri es= new EditSantri(this, true);
+        es.setVisible(true);
+    }//GEN-LAST:event_btnBaruActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +248,71 @@ public class Santri extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBaru;
     private javax.swing.JButton btnCetak;
-    private javax.swing.JTextField txKelas;
+    private javax.swing.JButton btnCetakAll;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnLihat;
+    private javax.swing.JComboBox cbKelas;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane sp;
+    private javax.swing.JTable tblSantri;
+    private javax.swing.JTextField txCariNama;
     // End of variables declaration//GEN-END:variables
+
+    private void _tampilKelas() {
+        try {
+            cbKelas.removeAllItems();
+            rs = kn.stmt.executeQuery("select kelas from tbPaketSiswa");
+            while (rs.next()) {                
+                cbKelas.addItem(rs.getObject("kelas"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void _cetakSiswa(String SQL,String rpt) {
+        String path = System.getProperties().getProperty("java.class.path")
+                .split(";")[System.getProperties().getProperty("java.class.path")
+                .split(";").length - 1] + "/";
+        try {
+            //File file = new File(path+"laporan/kelas.jrxml");
+            InputStream file= getClass().getResourceAsStream("/cb/kitab/laporan/"+rpt);
+            jasperDesign = JRXmlLoader.load(file);
+            param.clear();
+            
+            rs = kn.stmt.executeQuery(SQL);  
+
+            JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);            
+            jasperReport = JasperCompileManager.compileReport(jasperDesign);
+            jasperPrint = JasperFillManager.fillReport(jasperReport, param, jrRS);
+            
+            JasperViewer.viewReport(jasperPrint, false);            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void _lihatKelas(String kondisi) {
+        String SQL = "SELECT * from vw_santri where KelasBaru ='"+kondisi+"'";
+        try {
+            rs = kn.stmt.executeQuery(SQL);
+            ListTableModel mdl = ListTableModel.createModelFromResultSet(rs);
+            tblSantri.setModel(mdl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void _cariNama(String kondisi) {
+        String SQL = "SELECT * from vw_santri where Nama like '%"+kondisi+"%'";
+        try {
+            rs = kn.stmt.executeQuery(SQL);
+            ListTableModel mdl = ListTableModel.createModelFromResultSet(rs);
+            tblSantri.setModel(mdl);
+        } catch (SQLException ex) {
+            Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
