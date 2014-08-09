@@ -1,1 +1,0 @@
-java -jar kitab.jar
