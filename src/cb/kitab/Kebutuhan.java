@@ -8,9 +8,6 @@ package cb.kitab;
 
 import cb.kitab.utils.Koneksi;
 import cb.kitab.utils.ListTableModel;
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.io.File;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,17 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JRResultSetDataSource;
-import net.sf.jasperreports.engine.JasperCompileManager;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.design.JasperDesign;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
-import net.sf.jasperreports.view.JRViewer;
-import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -56,7 +42,6 @@ public class Kebutuhan extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTblKeb = new javax.swing.JTable();
         btnRefresh = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -80,13 +65,6 @@ public class Kebutuhan extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,8 +74,6 @@ public class Kebutuhan extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnRefresh)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
                 .addContainerGap())
@@ -106,9 +82,7 @@ public class Kebutuhan extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRefresh)
-                    .addComponent(jButton1))
+                .addComponent(btnRefresh)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
                 .addContainerGap())
@@ -126,6 +100,10 @@ public class Kebutuhan extends javax.swing.JFrame {
             column.add("Kebutuhan");
             column.add("Stok");
             column.add("kurang");
+            column.add("hpp");
+            column.add("HARGA");
+            column.add("laba");
+            
             
             
             ListTableModel tbl = new ListTableModel(column);
@@ -136,17 +114,21 @@ public class Kebutuhan extends javax.swing.JFrame {
         sp2 = "{CALL spHitungTerbeli(?)}";
         
         try {
-          rs = kn.stmt.executeQuery("select PID,MatPel,Stok from tb_matpel order by PID");        
+          rs = kn.stmt.executeQuery("select PID,MatPel,Stok,hpp,harga from tb_matpel order by PID");        
           
           ArrayList<List> data = new ArrayList<List>();
 		while (rs.next())
 		{
-                    int keb,beli,stok;
+                    int keb,beli,stok,hpp,harga,laba;
                     keb = hitungSP(rs.getString(1),sp1);
                     beli = hitungSP(rs.getString(1),sp2);
                     stok = rs.getInt(3);
+                    hpp = rs.getInt(4);
+                    harga = rs.getInt(5);
+                    laba = ( harga - hpp ) * keb;
+                    
                             
-			ArrayList<Object>row = new ArrayList<Object>(7);
+			ArrayList<Object>row = new ArrayList<Object>(10);
 			row.add(0, rs.getObject(1));
 			row.add(1, rs.getObject(2));
                         row.add(2, keb);
@@ -154,6 +136,10 @@ public class Kebutuhan extends javax.swing.JFrame {
                         row.add(4, keb - beli);
                         row.add(5, stok);
                         row.add(6, keb - beli - stok);
+                        row.add(7, hpp);
+                        row.add(8, harga);
+                        row.add(9, laba);
+                        
                                                 
 			data.add(row );
 		}
@@ -161,39 +147,21 @@ public class Kebutuhan extends javax.swing.JFrame {
                 tbl.insertRows(0, data);        
         
         jTblKeb.setModel(tbl);
+            System.out.println(hitungTotal());
         
         } catch (SQLException ex) {
             Logger.getLogger(Kebutuhan.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnRefreshActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {                                         
-            String path = System.getProperties().getProperty("java.class.path").split(";")[System.getProperties().getProperty("java.class.path").split(";").length - 1] + "/";
-            String file = path+"cb/kitab/laporan/report1.jrxml";
-            String SQL = "select * from tb_santri";
-            ResultSet rs = kn.stmt.executeQuery(SQL);
-            
-            JasperPrint jasperPrint;
-            JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);
-            JasperReport jasperReport = JasperCompileManager.compileReport(file);          
-            jasperPrint = JasperFillManager.fillReport(jasperReport, null, jrRS);
-            JRViewer aViewer = new JRViewer(jasperPrint);
-            aViewer.setVisible(true);
-            /*
-            JDialog viewer = new JDialog();
-            viewer.setTitle(".: Jasper Report :.");             
-            viewer.setAlwaysOnTop(true);
-            viewer.getContentPane().add(aViewer);
-            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();     
-            viewer.setBounds(0,0,screenSize.width, screenSize.height);
-            viewer.setVisible(true);
-            */            
-        } catch (SQLException | JRException ex) {
-            Logger.getLogger(Kebutuhan.class.getName()).log(Level.SEVERE, null, ex);
+    private int hitungTotal() {
+        int total = 0;
+        for (int i = 0; i < jTblKeb.getRowCount(); i++) {
+            total += (Integer) jTblKeb.getValueAt(i, 9);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        return total;
+    }
 private int hitungSP(String PID,String SP) throws SQLException {          
           int hasil = 0;
           CallableStatement cStmt = kn.conn.prepareCall(SP);
@@ -254,7 +222,6 @@ private int hitungSP(String PID,String SP) throws SQLException {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTblKeb;
     // End of variables declaration//GEN-END:variables
