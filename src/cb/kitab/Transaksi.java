@@ -21,6 +21,8 @@ import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.text.DecimalFormat;
 import javax.swing.table.TableColumn;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperPrintManager;
 
 /**
  *
@@ -54,13 +56,14 @@ public class Transaksi extends javax.swing.JFrame {
                 if (e.getKeyCode() ==KeyEvent.VK_F3){
                     _bersih();
                 }
+                
             } else if (e.getID() == KeyEvent.KEY_RELEASED) {
 //                System.out.println("2test2");
             } else if (e.getID() == KeyEvent.KEY_TYPED) {
 //                System.out.println("3test3");
             }
             return false;
-        }
+        }       
     }
     
     /**
@@ -94,7 +97,7 @@ public class Transaksi extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLbKelasBaru = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Transaksi");
         setState(6);
 
@@ -455,6 +458,7 @@ public class Transaksi extends javax.swing.JFrame {
     private javax.swing.JTextField txNis;
     // End of variables declaration//GEN-END:variables
 
+    
     private void tampilKitab(String _id) throws SQLException {
         clearTable();
         DefaultTableModel tbl = new DefaultTableModel();
@@ -554,8 +558,7 @@ public class Transaksi extends javax.swing.JFrame {
 
     private void simpanData() {
         String _isi = "",_id= _idTrans();
-        //System.out.println(_id);
-
+        
         for (int i = 0; i < jTblTrans.getRowCount(); i++) {
             _isi += "('"+_id+"','"+jTblTrans.getValueAt(i, 0)+
                     "','"+jTblTrans.getValueAt(i, 1)+
@@ -579,6 +582,13 @@ public class Transaksi extends javax.swing.JFrame {
         kn.conn.commit();
         
         JOptionPane.showMessageDialog(rootPane, "Data Berhasil disimpan...");
+            
+            try {
+                JasperPrintManager.printReport("koneksi.cb", true);
+            } catch (JRException ex) {
+                Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
         _bersih();
          } catch (SQLException ex) {
             Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);

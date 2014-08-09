@@ -9,8 +9,6 @@ package cb.kitab;
 import cb.kitab.dialog.EditSantri;
 import cb.kitab.utils.Koneksi;
 import cb.kitab.utils.ListTableModel;
-import java.awt.event.KeyEvent;
-import java.io.File;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import net.sf.jasperreports.engine.JRResultSetDataSource;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -70,8 +68,9 @@ public class Santri extends javax.swing.JFrame {
         btnCetakAll = new javax.swing.JButton();
         btnEdit = new javax.swing.JButton();
         btnBaru = new javax.swing.JButton();
+        btnHapus = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         cbKelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -108,6 +107,7 @@ public class Santri extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblSantri.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         sp.setViewportView(tblSantri);
 
         btnCetakAll.setText("Cetak All");
@@ -128,6 +128,13 @@ public class Santri extends javax.swing.JFrame {
         btnBaru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBaruActionPerformed(evt);
+            }
+        });
+
+        btnHapus.setText("Hapus");
+        btnHapus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHapusActionPerformed(evt);
             }
         });
 
@@ -152,7 +159,8 @@ public class Santri extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnCetak))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnHapus)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBaru)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEdit)))
@@ -176,7 +184,8 @@ public class Santri extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEdit)
-                    .addComponent(btnBaru))
+                    .addComponent(btnBaru)
+                    .addComponent(btnHapus))
                 .addContainerGap())
         );
 
@@ -204,13 +213,31 @@ public class Santri extends javax.swing.JFrame {
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         EditSantri es= new EditSantri(this, true, false, 
                 (String) tblSantri.getValueAt(tblSantri.getSelectedRow(), 0));
+        es.setTitle("Edit Data Santri");
         es.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
         EditSantri es= new EditSantri(this, true);
+        es.setTitle("Tambah Data Santri");
         es.setVisible(true);
     }//GEN-LAST:event_btnBaruActionPerformed
+
+    private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
+        String NIS = (String) tblSantri.getValueAt(tblSantri.getSelectedRow(),0);
+        
+        if (JOptionPane.showConfirmDialog(rootPane, "Hapus Data ini?", 
+                "Hapus Data", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+            try {
+                kn.conn.setAutoCommit(false);                
+                kn.stmt.executeUpdate("delete from tb_santri where NIS= '"+NIS+"'");
+                kn.conn.commit();
+                JOptionPane.showMessageDialog(rootPane, "Hapus Data Berhasil....");
+            } catch (SQLException ex) {
+                Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnHapusActionPerformed
 
     /**
      * @param args the command line arguments
@@ -252,6 +279,7 @@ public class Santri extends javax.swing.JFrame {
     private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnCetakAll;
     private javax.swing.JButton btnEdit;
+    private javax.swing.JButton btnHapus;
     private javax.swing.JButton btnLihat;
     private javax.swing.JComboBox cbKelas;
     private javax.swing.JLabel jLabel1;
@@ -288,7 +316,10 @@ public class Santri extends javax.swing.JFrame {
             jasperReport = JasperCompileManager.compileReport(jasperDesign);
             jasperPrint = JasperFillManager.fillReport(jasperReport, param, jrRS);
             
-            JasperViewer.viewReport(jasperPrint, false);            
+            JasperViewer.viewReport(jasperPrint, false);
+            
+            
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -299,6 +330,7 @@ public class Santri extends javax.swing.JFrame {
         try {
             rs = kn.stmt.executeQuery(SQL);
             ListTableModel mdl = ListTableModel.createModelFromResultSet(rs);
+            
             tblSantri.setModel(mdl);
         } catch (SQLException ex) {
             Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);

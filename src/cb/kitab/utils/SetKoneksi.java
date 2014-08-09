@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -36,14 +37,14 @@ public class SetKoneksi extends javax.swing.JFrame {
 
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        txUrl = new javax.swing.JTextField();
+        txUser = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        txPass = new javax.swing.JPasswordField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Setting Koneksi");
         setResizable(false);
 
@@ -67,6 +68,8 @@ public class SetKoneksi extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
+        txPass.setText("jPasswordField1");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -76,7 +79,7 @@ public class SetKoneksi extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel3)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
@@ -87,12 +90,12 @@ public class SetKoneksi extends javax.swing.JFrame {
                                 .addComponent(jButton2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txUser, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addComponent(txUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txPass))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,15 +103,15 @@ public class SetKoneksi extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txUrl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
@@ -122,10 +125,12 @@ public class SetKoneksi extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     
         FileOutputStream foutput = null;
-        String data ; 
-        data = "url:"+jTextField1.getText()+"use:"+jTextField2.getText()+
-               "pas:"+jTextField3.getText();
-
+        String data,pass ; 
+        data = "url:"+txUrl.getText()+"use:"+txUser.getText()+
+               "pas:";
+        pass = new String(txPass.getPassword());
+        data += pass;
+        System.out.println(data);
         // membuka file
         try {
           foutput = new FileOutputStream("koneksi.cb");
@@ -139,6 +144,7 @@ public class SetKoneksi extends javax.swing.JFrame {
              for (int i=0; i<data.length(); i++) {
              // data akan dikonversi per karakter
                foutput.write((int) data.charAt(i));
+               
              }
         } catch (IOException ioe) {
              System.out.println(ioe.getMessage());
@@ -149,7 +155,8 @@ public class SetKoneksi extends javax.swing.JFrame {
         try {    
         	 foutput.close();
         } catch (IOException ioe) {}
-         // TODO add your handling code here:
+        JOptionPane.showMessageDialog(rootPane, "penyimpanan berhasil...");
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -162,8 +169,9 @@ public class SetKoneksi extends javax.swing.JFrame {
         try {
           finput = new FileInputStream("koneksi.cb");
         } catch (FileNotFoundException fnfe) {
-            System.out.println("File tidak ditemukan.");
-            return; // keluar dari method
+            txUrl.setText("jdbc:mysql://localhost:3306/");
+            JOptionPane.showMessageDialog(rootPane, fnfe);
+            //return; // keluar dari method
         }
         
         // membaca data dari dalam file
@@ -175,13 +183,16 @@ public class SetKoneksi extends javax.swing.JFrame {
                matang += Character.toString((char) data);
              }
 
-             jTextField1.setText(matang.substring(matang.indexOf("url:")+4, matang.indexOf("use:")));
-             jTextField2.setText(matang.substring(matang.indexOf("use:")+4, matang.indexOf("pas:")));
-             jTextField3.setText(matang.substring(matang.indexOf("pas:")+4, matang.length()));             
+             txUrl.setText(matang.substring(matang.indexOf("url:")+4, matang.indexOf("use:")));
+             txUser.setText(matang.substring(matang.indexOf("use:")+4, matang.indexOf("pas:")));
+             txPass.setText(matang.substring(matang.indexOf("pas:")+4, matang.length()));
+             
+             
                      
         } catch (IOException ioe) {
-             System.out.println(ioe.getMessage());
-             return;
+             txUrl.setText("jdbc:mysql://localhost:3306/");
+             JOptionPane.showMessageDialog(rootPane, ioe);
+             //return;
         }
 
         // menutup file    
@@ -231,8 +242,8 @@ public class SetKoneksi extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JPasswordField txPass;
+    private javax.swing.JTextField txUrl;
+    private javax.swing.JTextField txUser;
     // End of variables declaration//GEN-END:variables
 }

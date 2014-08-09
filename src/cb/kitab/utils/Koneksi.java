@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -35,6 +36,7 @@ public class Koneksi {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex);
             Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
@@ -43,6 +45,7 @@ public class Koneksi {
             //JOptionPane.showMessageDialog(null, "koneksi berhasil...");
             
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
             Logger.getLogger(Koneksi.class.getName()).log(Level.SEVERE, null, ex);
         }
                 
