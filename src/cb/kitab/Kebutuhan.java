@@ -8,13 +8,22 @@ package cb.kitab;
 
 import cb.kitab.utils.Koneksi;
 import cb.kitab.utils.ListTableModel;
+import java.awt.event.KeyEvent;
 import java.sql.CallableStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.SwingConstants;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableColumnModelEvent;
+import javax.swing.event.TableColumnModelListener;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -23,11 +32,17 @@ import java.util.logging.Logger;
 public class Kebutuhan extends javax.swing.JFrame {
     ResultSet rs,rsSP;
     Koneksi kn = new Koneksi();
+    private DecimalFormat numFormat = new DecimalFormat("#,###,###");
+    private boolean Showlaba = false;
+
     /**
      * Creates new form Kebutuhan
      */
     public Kebutuhan() {
         initComponents();
+        setLocationRelativeTo(null);
+        setExtendedState(getExtendedState() | MAXIMIZED_BOTH);       
+        Refresh();
     }
 
     /**
@@ -39,11 +54,43 @@ public class Kebutuhan extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnRefresh = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        tblFooter = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTblKeb = new javax.swing.JTable();
-        btnRefresh = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Kebutuhan");
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        tblFooter.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4", "null", "null", "Title 7", "Title 8", "Title 9", "Title 10"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        tblFooter.setEnabled(false);
+        tblFooter.setFocusable(false);
+        jPanel1.add(tblFooter, java.awt.BorderLayout.PAGE_END);
 
         jTblKeb.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -56,113 +103,108 @@ public class Kebutuhan extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(jTblKeb);
+        jTblKeb.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTblKeb.getColumnModel().addColumnModelListener(
+            new TableColumnModelListener() {
 
-        btnRefresh.setText("Refresh");
-        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRefreshActionPerformed(evt);
-            }
-        });
+                @Override
+                public void columnSelectionChanged(ListSelectionEvent e) {
+                }
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnRefresh)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 472, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(btnRefresh)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                @Override
+                public void columnRemoved(TableColumnModelEvent e) {
+                }
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+                @Override
+                public void columnMoved(TableColumnModelEvent e) {
+                }
+
+                @Override
+                public void columnMarginChanged(ChangeEvent e) {
+                    final TableColumnModel tableColumnModel = jTblKeb
+                    .getColumnModel();
+                    TableColumnModel footerColumnModel = tblFooter
+                    .getColumnModel();
+                    for (int i = 0; i < tableColumnModel.getColumnCount(); i++) {
+                        int w = tableColumnModel.getColumn(i).getWidth();
+                        footerColumnModel.getColumn(i).setMinWidth(w);
+                        footerColumnModel.getColumn(i).setMaxWidth(w);
+                        // footerColumnModel.getColumn(i).setPreferredWidth(w);
+                    }
+
+                    tblFooter.doLayout();
+                    tblFooter.repaint();
+                    repaint();
+                }
+
+                @Override
+                public void columnAdded(TableColumnModelEvent e) {
+                }
+            });
+            jTblKeb.addKeyListener(new java.awt.event.KeyAdapter() {
+                public void keyPressed(java.awt.event.KeyEvent evt) {
+                    jTblKebKeyPressed(evt);
+                }
+            });
+            jScrollPane1.setViewportView(jTblKeb);
+
+            jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
+                        .addComponent(btnRefresh))
+                    .addContainerGap())
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(btnRefresh)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                    .addContainerGap())
+            );
+
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
 
     private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
-        ArrayList<String> column = new ArrayList<String>();
-            column.add("PID");
-            column.add("Deskripsi");
-            column.add("Keb. Awal");
-            column.add("terbeli");
-            column.add("Kebutuhan");
-            column.add("Stok");
-            column.add("kurang");
-            column.add("hpp");
-            column.add("HARGA");
-            column.add("laba");
-            
-            
-            
-            ListTableModel tbl = new ListTableModel(column);
-            tbl.setModelEditable( false );
-            
-        String sp1,sp2;
-        sp1 = "{CALL spHitungKebutuhanKitab(?)}";
-        sp2 = "{CALL spHitungTerbeli(?)}";
-        
-        try {
-          rs = kn.stmt.executeQuery("select PID,MatPel,Stok,hpp,harga from tb_matpel order by PID");        
-          
-          ArrayList<List> data = new ArrayList<List>();
-		while (rs.next())
-		{
-                    int keb,beli,stok,hpp,harga,laba;
-                    keb = hitungSP(rs.getString(1),sp1);
-                    beli = hitungSP(rs.getString(1),sp2);
-                    stok = rs.getInt(3);
-                    hpp = rs.getInt(4);
-                    harga = rs.getInt(5);
-                    laba = ( harga - hpp ) * keb;
-                    
-                            
-			ArrayList<Object>row = new ArrayList<Object>(10);
-			row.add(0, rs.getObject(1));
-			row.add(1, rs.getObject(2));
-                        row.add(2, keb);
-			row.add(3, beli);
-                        row.add(4, keb - beli);
-                        row.add(5, stok);
-                        row.add(6, keb - beli - stok);
-                        row.add(7, hpp);
-                        row.add(8, harga);
-                        row.add(9, laba);
-                        
-                                                
-			data.add(row );
-		}
-                
-                tbl.insertRows(0, data);        
-        
-        jTblKeb.setModel(tbl);
-            System.out.println(hitungTotal());
-        
-        } catch (SQLException ex) {
-            Logger.getLogger(Kebutuhan.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+        Refresh();
     }//GEN-LAST:event_btnRefreshActionPerformed
-    private int hitungTotal() {
-        int total = 0;
+
+    private void jTblKebKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTblKebKeyPressed
+        if (evt.getKeyCode()== KeyEvent.VK_F12){
+            if (Showlaba){
+                jTblKeb.getColumnModel().getColumn(9).setMinWidth(0);
+                jTblKeb.getColumnModel().getColumn(9).setMaxWidth(0);
+                jTblKeb.getColumnModel().getColumn(9).setPreferredWidth(0);
+                Showlaba = false;
+            } else{
+                jTblKeb.getColumnModel().getColumn(9).setMinWidth(50);
+                jTblKeb.getColumnModel().getColumn(9).setMaxWidth(250);
+                jTblKeb.getColumnModel().getColumn(9).setPreferredWidth(100);
+                Showlaba = true;
+            }
+        }
+    }//GEN-LAST:event_jTblKebKeyPressed
+    
+    private Integer sumTbl(int col) {
+        Integer total = 0;
         for (int i = 0; i < jTblKeb.getRowCount(); i++) {
-            total += (Integer) jTblKeb.getValueAt(i, 9);
+            total += (Integer) jTblKeb.getValueAt(i, col);
+            jTblKeb.setValueAt(numFormat.format(jTblKeb.getValueAt(i, col)), i, col);
         }
         
         return total;
     }
-private int hitungSP(String PID,String SP) throws SQLException {          
+    
+    private int hitungSP(String PID,String SP) throws SQLException {          
           int hasil = 0;
           CallableStatement cStmt = kn.conn.prepareCall(SP);
           cStmt.setString(1, PID);
@@ -222,7 +264,83 @@ private int hitungSP(String PID,String SP) throws SQLException {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRefresh;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTblKeb;
+    private javax.swing.JTable tblFooter;
     // End of variables declaration//GEN-END:variables
+
+    private void Refresh() {
+        ArrayList<String> column = new ArrayList<String>();
+            column.add("PID");
+            column.add("Deskripsi");
+            column.add("Keb. Awal");
+            column.add("Terbeli");
+            column.add("Kebutuhan");
+            column.add("Stok");
+            column.add("Kurang");
+            column.add("HPP");
+            column.add("HARGA");
+            column.add("Laba");
+            
+            ListTableModel tbl = new ListTableModel(column);
+            tbl.setModelEditable( false );
+            
+        String sp1,sp2;
+        sp1 = "{CALL spHitungKebutuhanKitab(?)}";
+        sp2 = "{CALL spHitungTerbeli(?)}";
+        
+        try {
+          rs = kn.stmt.executeQuery("select PID,MatPel,Stok,hpp,harga from tb_matpel order by PID");        
+          
+          ArrayList<List> data = new ArrayList<List>();
+		while (rs.next())
+		{
+                    int keb,beli,stok,hpp,harga,laba;
+                    keb = hitungSP(rs.getString(1),sp1);
+                    beli = hitungSP(rs.getString(1),sp2);
+                    stok = rs.getInt(3);
+                    hpp = rs.getInt(4);
+                    harga = rs.getInt(5);
+                    laba = ( harga - hpp ) * beli;
+                    
+                            
+			ArrayList<Object>row = new ArrayList<Object>(10);
+			row.add(0, rs.getObject(1));
+			row.add(1, rs.getObject(2));
+                        row.add(2, keb);
+			row.add(3, beli);
+                        row.add(4, keb - beli);
+                        row.add(5, stok);
+                        row.add(6, keb - beli - stok);
+                        row.add(7, hpp);
+                        row.add(8, harga);
+                        row.add(9, laba);
+                        
+                                                
+			data.add(row );
+		}
+                
+                tbl.insertRows(0, data);        
+        
+        jTblKeb.setModel(tbl);
+        
+        DefaultTableCellRenderer rightRenderer = new DefaultTableCellRenderer();
+        rightRenderer.setHorizontalAlignment(SwingConstants.RIGHT);
+        
+        for (int i = 2; i < 10; i++) {
+            //tbl.setColumnClass(i, java.lang.Integer.class);
+            tblFooter.setValueAt(numFormat.format(sumTbl(i)), 0, i);
+            tblFooter.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+            jTblKeb.getColumnModel().getColumn(i).setCellRenderer(rightRenderer);
+        }
+        
+        jTblKeb.getColumnModel().getColumn(9).setMinWidth(0);
+        jTblKeb.getColumnModel().getColumn(9).setMaxWidth(0);
+        jTblKeb.getColumnModel().getColumn(9).setPreferredWidth(0);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(Kebutuhan.class.getName()).log(Level.SEVERE, null, ex);
+        }    
+    }
 }

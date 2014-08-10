@@ -6,11 +6,25 @@
 
 package cb.kitab;
 
+import cb.kitab.utils.Koneksi;
+import cb.kitab.utils.ListTableModel;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.TableColumnModelEvent;
+import javax.swing.event.TableColumnModelListener;
+import javax.swing.table.TableColumnModel;
+
 /**
  *
  * @author swalayan
  */
 public class MatPel extends javax.swing.JFrame {
+    Koneksi kn = new Koneksi();
+    ResultSet rs;
 
     /**
      * Creates new form Santri
@@ -18,6 +32,8 @@ public class MatPel extends javax.swing.JFrame {
     public MatPel() {
         initComponents();
         setLocationRelativeTo(null);
+        setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
+        cariKitab("");
     }
 
     /**
@@ -30,47 +46,121 @@ public class MatPel extends javax.swing.JFrame {
     private void initComponents() {
 
         txCari = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblKitab = new javax.swing.JTable();
+        tblFooter = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        txCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txCariActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setLayout(new java.awt.BorderLayout());
+
+        tblKitab.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblKitab.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tblKitab.getColumnModel().addColumnModelListener(
+            new TableColumnModelListener() {
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txCari)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+                @Override
+                public void columnSelectionChanged(ListSelectionEvent e) {
+                }
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+                @Override
+                public void columnRemoved(TableColumnModelEvent e) {
+                }
+
+                @Override
+                public void columnMoved(TableColumnModelEvent e) {
+                }
+
+                @Override
+                public void columnMarginChanged(ChangeEvent e) {
+                    final TableColumnModel tableColumnModel = tblKitab
+                    .getColumnModel();
+                    TableColumnModel footerColumnModel = tblFooter
+                    .getColumnModel();
+                    for (int i = 0; i < tableColumnModel.getColumnCount(); i++) {
+                        int w = tableColumnModel.getColumn(i).getWidth();
+                        footerColumnModel.getColumn(i).setMinWidth(w);
+                        footerColumnModel.getColumn(i).setMaxWidth(w);
+                        // footerColumnModel.getColumn(i).setPreferredWidth(w);
+                    }
+
+                    tblFooter.doLayout();
+                    tblFooter.repaint();
+                    repaint();
+                }
+
+                @Override
+                public void columnAdded(TableColumnModelEvent e) {
+                }
+            });
+            jScrollPane1.setViewportView(tblKitab);
+
+            jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+            tblFooter.setModel(new javax.swing.table.DefaultTableModel(
+                new Object [][] {
+                    {null, null, null, null, null, null}
+                },
+                new String [] {
+                    "Title 1", "Title 2", "Title 3", "Title 4", "null", "null"
+                }
+            ) {
+                Class[] types = new Class [] {
+                    java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class
+                };
+
+                public Class getColumnClass(int columnIndex) {
+                    return types [columnIndex];
+                }
+            });
+            tblFooter.setEnabled(false);
+            tblFooter.setFocusable(false);
+            jPanel1.add(tblFooter, java.awt.BorderLayout.PAGE_END);
+
+            javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+            getContentPane().setLayout(layout);
+            layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txCari)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap())
+            );
+            layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(txCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                    .addContainerGap())
+            );
+
+            pack();
+        }// </editor-fold>//GEN-END:initComponents
+
+    private void txCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txCariActionPerformed
+        cariKitab(txCari.getText());
+    }//GEN-LAST:event_txCariActionPerformed
 
     /**
      * @param args the command line arguments
@@ -103,8 +193,33 @@ public class MatPel extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblFooter;
+    private javax.swing.JTable tblKitab;
     private javax.swing.JTextField txCari;
     // End of variables declaration//GEN-END:variables
+
+    private void cariKitab(String kondisi) {
+        String SQL = "SELECT * from tb_matpel where Matpel like '%"+kondisi+"%'";
+        try {
+            rs = kn.stmt.executeQuery(SQL);
+            ListTableModel mdl = ListTableModel.createModelFromResultSet(rs);
+            tblKitab.setModel(mdl);
+            tblFooter.setValueAt(sumTbl(2), 0, 2);
+            tblFooter.setValueAt(sumTbl(3), 0, 3);
+            tblFooter.setValueAt(sumTbl(4), 0, 4);
+        } catch (SQLException ex) {
+            Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+    }
+    
+    private Integer sumTbl(int col) {
+        Integer total = 0;
+        for (int i = 0; i < tblKitab.getRowCount(); i++) {
+            total += (Integer) tblKitab.getValueAt(i, col);
+        }
+        
+        return total;
+    }
 }
