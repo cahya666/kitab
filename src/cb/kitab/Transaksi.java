@@ -13,16 +13,20 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import cb.kitab.dialog.JDlgCari;
+import cb.kitab.utils.PrintFile;
+import cb.kitab.utils.TextUtils;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.DecimalFormat;
+import javax.print.PrintException;
 import javax.swing.table.TableColumn;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperPrintManager;
+
 
 /**
  *
@@ -32,6 +36,8 @@ public class Transaksi extends javax.swing.JFrame {
     private final Koneksi kn = new Koneksi();
     private ResultSet rsTmp,rsExe,rsShow;
     private DecimalFormat numFormat = new DecimalFormat("#,###,###");
+    private Integer total,bayar,kembali;
+    private String idTrans;
 
     /**
      * Creates new form Menu
@@ -44,7 +50,7 @@ public class Transaksi extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         _bersih();
     }
-    
+
     private class MyDispatcher implements KeyEventDispatcher {
         @Override
         public boolean dispatchKeyEvent(KeyEvent e) {
@@ -56,7 +62,9 @@ public class Transaksi extends javax.swing.JFrame {
                 if (e.getKeyCode() ==KeyEvent.VK_F3){
                     _bersih();
                 }
-                
+                if (e.getKeyCode() ==KeyEvent.VK_F11){
+                    cetakStruk(idTrans);
+                }
             } else if (e.getID() == KeyEvent.KEY_RELEASED) {
 //                System.out.println("2test2");
             } else if (e.getID() == KeyEvent.KEY_TYPED) {
@@ -293,8 +301,8 @@ public class Transaksi extends javax.swing.JFrame {
                             .addComponent(jLabel7))
                         .addGap(10, 10, 10)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(185, 185, 185)
                         .addComponent(jLbBayar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -320,7 +328,7 @@ public class Transaksi extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(jLabel5)
@@ -330,7 +338,7 @@ public class Transaksi extends javax.swing.JFrame {
                         .addComponent(txBayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(7, 7, 7)
                         .addComponent(txKembali, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLbBayar, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLbBayar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -354,7 +362,6 @@ public class Transaksi extends javax.swing.JFrame {
         }
         
         if (jLbBayar.getForeground()==Color.green){
-            Integer total,bayar,kembali;
             total = hitungTotal();
             bayar = tryParseInt(txBayar.getText());
             kembali=  bayar - total;
@@ -573,8 +580,9 @@ public class Transaksi extends javax.swing.JFrame {
         
         kn.conn.setAutoCommit(false);
         
-        kn.stmt.executeUpdate("insert into tb_jual_global(id_Trans,Tanggal,jam,NIS,Total) values "+
-                "('"+_id+"',date(now()),time(now()),'"+jLbnis.getText()+"','"+Integer.toString(hitungTotal())+"')");
+        kn.stmt.executeUpdate("insert into tb_jual_global(id_Trans,Tanggal,jam,NIS,Total,Bayar,Kembali) values "+
+                "('"+_id+"',date(now()),time(now()),'"+jLbnis.getText()
+                +"','"+total+"','"+bayar+"','"+kembali+"')");
         
         kn.stmt.executeUpdate("insert into tb_jual_rinci(id_Trans,no,PID,HPP,Harga) values "+_isi );
         
@@ -582,12 +590,8 @@ public class Transaksi extends javax.swing.JFrame {
         kn.conn.commit();
         
         JOptionPane.showMessageDialog(rootPane, "Data Berhasil disimpan...");
-            
-            try {
-                JasperPrintManager.printReport("koneksi.cb", true);
-            } catch (JRException ex) {
-                Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        this.idTrans = _id;    
+        cetakStruk(this.idTrans);
         
         _bersih();
          } catch (SQLException ex) {
@@ -596,6 +600,67 @@ public class Transaksi extends javax.swing.JFrame {
                 
    }
 
+    private void cetakStruk(String KodeTrans) {
+        char ent = '\n';
+        String data="",_harga,_total,_bayar,_kembali;
+        int lebar = 38;
+        
+        if ((KodeTrans.equals(""))|| (KodeTrans.equals(null))){
+            System.out.println("data kosong....");
+            return;
+        }
+        
+        try {
+            rsShow = kn.stmt.executeQuery("select * from vwJualKitab where id_Trans='"+KodeTrans+"'");
+            rsShow.first();
+            
+            _total = numFormat.format(rsShow.getInt("Total"));
+            _bayar = numFormat.format(rsShow.getInt("Bayar"));
+            _kembali = numFormat.format(rsShow.getInt("Kembali"));
+            
+            for (int i = 0; i < lebar; i++) {data+="=";}
+            data+= ent;
+            
+            data+= "kd Trans. : "+rsShow.getString("id_Trans")+ent;
+            data+= "Siswa     : "+rsShow.getString("Nama")+ent;
+            data+= "Kelas     : "+rsShow.getString("KelasBaru")+ent;
+            data+= "Tgl/Jam   : "+rsShow.getString("Tanggal")+" "+rsShow.getString("jam")+ent;
+            
+            for (int i = 0; i < lebar; i++) {data+="-";}
+            data+= ent;
+            
+            do{  
+                _harga = numFormat.format(rsShow.getInt("Harga"));
+                data+= TextUtils.wrapText(rsShow.getString("no")+" . " + rsShow.getString("MatPel"),lebar,4)+ent;
+                data+= TextUtils.setText(_harga +" X 1 PCS =  "+_harga, lebar, 2)+ent;
+            } while (rsShow.next());
+            
+            for (int i = 0; i < lebar; i++) {data+="-";}
+            data+= ent;
+             
+            data+= "Total   :";
+            data+= TextUtils.setText(_total, lebar-9, 2)+ent;
+            data+= "Bayar   :";
+            data+= TextUtils.setText(_bayar, lebar-9, 2)+ent;
+            data+= "Kembali :";
+            data+= TextUtils.setText(_kembali, lebar-9, 2)+ent;
+            data+= ent;
+            data+= TextUtils.setText("TERIMA KASIH", lebar, 1)+ent+ent+ent+ent;
+            
+            data+= TextUtils.setText("DUTA SWALAYAN", lebar, 1)+ent;
+            data+= TextUtils.setText("Telp. (0343) 613882", lebar, 1)+ent;
+            
+            TextUtils.SimpankeFile(data, "cetak.prn");
+            
+            //PrintException | IOException | 
+            PrintFile.printTextFile("cetak.prn");
+                
+        } catch ( PrintException | IOException | SQLException ex) {
+                Logger.getLogger(Transaksi.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
     private void _bersih() {
         jLbnis.setText("");
         jLbNama.setText("");

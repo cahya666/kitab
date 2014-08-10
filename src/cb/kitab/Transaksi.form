@@ -39,8 +39,8 @@
                       </Group>
                       <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txBayar" min="-2" pref="163" max="-2" attributes="0"/>
-                          <Component id="txKembali" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Component id="txKembali" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
+                          <Component id="txBayar" alignment="0" min="-2" pref="163" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="185" max="-2" attributes="0"/>
                       <Component id="jLbBayar" max="32767" attributes="0"/>
@@ -75,7 +75,7 @@
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jScrollPane1" pref="217" max="32767" attributes="0"/>
               <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="103" groupAlignment="0" max="-2" attributes="0">
                   <Group type="102" attributes="0">
                       <EmptySpace min="3" pref="3" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
@@ -84,10 +84,10 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="txBayar" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                       <Component id="txKembali" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jLbBayar" alignment="0" min="-2" pref="63" max="-2" attributes="0"/>
+                  <Component id="jLbBayar" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
           </Group>
