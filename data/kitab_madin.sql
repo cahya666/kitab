@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50512
 File Encoding         : 65001
 
-Date: 2014-08-09 23:12:08
+Date: 2014-08-10 23:51:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -179,7 +179,9 @@ CREATE TABLE `tb_jual_global` (
   `Tanggal` date DEFAULT NULL,
   `jam` time DEFAULT NULL,
   `NIS` varchar(20) DEFAULT NULL,
-  `Total` int(11) DEFAULT NULL,
+  `Total` int(11) DEFAULT '0',
+  `Bayar` int(11) DEFAULT '0',
+  `Kembali` int(11) DEFAULT '0',
   PRIMARY KEY (`id_Trans`),
   KEY `ixNIS` (`NIS`) USING BTREE,
   CONSTRAINT `ixNIS` FOREIGN KEY (`NIS`) REFERENCES `tb_santri` (`NIS`) ON DELETE CASCADE ON UPDATE CASCADE
@@ -188,9 +190,13 @@ CREATE TABLE `tb_jual_global` (
 -- ----------------------------
 -- Records of tb_jual_global
 -- ----------------------------
-INSERT INTO `tb_jual_global` VALUES ('TR-20140807-0001', '2014-08-07', '22:16:12', '0502037', '45000');
-INSERT INTO `tb_jual_global` VALUES ('TR-20140807-0002', '2014-08-07', '22:16:21', '0411036', '35000');
-INSERT INTO `tb_jual_global` VALUES ('TR-20140809-0001', '2014-08-09', '13:06:32', '0604032', '40000');
+INSERT INTO `tb_jual_global` VALUES ('TR-20140810-0001', '2014-08-10', '15:05:39', '0101001', '12500', '15000', '2500');
+INSERT INTO `tb_jual_global` VALUES ('TR-20140810-0002', '2014-08-10', '15:05:48', '0103006', '12500', '15000', '2500');
+INSERT INTO `tb_jual_global` VALUES ('TR-20140810-0003', '2014-08-10', '15:05:59', '0203008', '15500', '20000', '4500');
+INSERT INTO `tb_jual_global` VALUES ('TR-20140810-0004', '2014-08-10', '18:47:47', '0208009', '15500', '20000', '4500');
+INSERT INTO `tb_jual_global` VALUES ('TR-20140810-0005', '2014-08-10', '19:07:25', '0802005', '31000', '40000', '9000');
+INSERT INTO `tb_jual_global` VALUES ('TR-20140810-0006', '2014-08-10', '19:09:38', '0403025', '33500', '40000', '6500');
+INSERT INTO `tb_jual_global` VALUES ('TR-20140810-0007', '2014-08-10', '19:53:12', '0410007', '35000', '40000', '5000');
 
 -- ----------------------------
 -- Table structure for `tb_jual_rinci`
@@ -212,22 +218,38 @@ CREATE TABLE `tb_jual_rinci` (
 -- ----------------------------
 -- Records of tb_jual_rinci
 -- ----------------------------
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0001', '5-001', '1', '3500', '4800', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0001', '5-002', '2', '3500', '5300', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0001', '5-004', '3', '3750', '5700', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0001', '5-005', '4', '2750', '4200', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0001', '5-006', '5', '4760', '6500', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0001', '5-007', '6', '13475', '18500', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0002', '4-001', '1', '2400', '3700', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0002', '4-002', '2', '5000', '6600', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0002', '4-004', '3', '3675', '5200', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0002', '4-005', '4', '6425', '8800', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0002', '4-006', '5', '3025', '4200', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140807-0002', '4-007', '6', '4550', '6500', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140809-0001', '6-001', '1', '21600', '25900', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140809-0001', '6-002', '2', '0', '0', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140809-0001', '6-003', '3', '9000', '11400', 'Y');
-INSERT INTO `tb_jual_rinci` VALUES ('TR-20140809-0001', '6-004', '4', '1375', '2700', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0001', '1-001', '1', '3700', '5200', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0001', '1-002', '2', '1600', '2700', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0001', '1-003', '3', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0001', '1-004', '4', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0002', '1-001', '1', '3700', '5200', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0002', '1-002', '2', '1600', '2700', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0002', '1-003', '3', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0002', '1-004', '4', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0003', '2-001', '1', '3500', '4800', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0003', '2-003', '2', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0003', '2-004', '3', '2025', '3300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0003', '2-005', '4', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0003', '2-006', '5', '1760', '2800', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0004', '2-001', '1', '3500', '4800', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0004', '2-003', '2', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0004', '2-004', '3', '2025', '3300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0004', '2-005', '4', '1500', '2300', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0004', '2-006', '5', '1760', '2800', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0005', '8-001', '1', '16000', '20800', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0005', '8-002', '2', '7150', '10200', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0006', '4-001', '1', '2400', '3700', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0006', '4-002', '2', '5000', '6600', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0006', '4-003', '3', '2500', '3700', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0006', '4-005', '4', '6425', '8800', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0006', '4-006', '5', '3025', '4200', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0006', '4-007', '6', '4550', '6500', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0007', '4-001', '1', '2400', '3700', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0007', '4-002', '2', '5000', '6600', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0007', '4-004', '3', '3675', '5200', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0007', '4-005', '4', '6425', '8800', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0007', '4-006', '5', '3025', '4200', 'Y');
+INSERT INTO `tb_jual_rinci` VALUES ('TR-20140810-0007', '4-007', '6', '4550', '6500', 'Y');
 
 -- ----------------------------
 -- Table structure for `tb_matpel`
@@ -250,16 +272,12 @@ INSERT INTO `tb_matpel` VALUES ('1-001', 'FIQIH (FASHOLATAN)', '3700', '5200', '
 INSERT INTO `tb_matpel` VALUES ('1-002', 'QIRO’ATUL KUTUB (SAFINATUN NAJAH)', '1600', '2700', '0', null);
 INSERT INTO `tb_matpel` VALUES ('1-003', 'AKHLAQ (BIRRUL WALIDAIKUM)', '1500', '2300', '0', null);
 INSERT INTO `tb_matpel` VALUES ('1-004', 'HADITS (BUDI LUHUR)', '1500', '2300', '0', null);
-INSERT INTO `tb_matpel` VALUES ('1-005', 'PEGO (ALA NGALAH)', '0', '0', '0', null);
-INSERT INTO `tb_matpel` VALUES ('1-006', 'TAHSINUL KHOT(ALA NGALAH)', '0', '0', '0', null);
 INSERT INTO `tb_matpel` VALUES ('2-001', 'NAHWU (NAHWU JAWAN)', '3500', '4800', '0', null);
-INSERT INTO `tb_matpel` VALUES ('2-002', 'PEGON', '0', '0', '0', null);
 INSERT INTO `tb_matpel` VALUES ('2-003', 'AKHLAQ (MATLAB)', '1500', '2300', '0', null);
 INSERT INTO `tb_matpel` VALUES ('2-004', 'TAUHID (SULAMUD DIYANAH)', '2025', '3300', '0', null);
 INSERT INTO `tb_matpel` VALUES ('2-005', 'FIQIH (MABADIUL FIQHIYAH I)', '1500', '2300', '0', null);
 INSERT INTO `tb_matpel` VALUES ('2-006', 'QIRO’ATUL KUTUB (SULAM TAUFIQ)', '1760', '2800', '0', null);
 INSERT INTO `tb_matpel` VALUES ('3-001', 'MATAN AJURUMIYAH & NADHOM IMRITHI', '2250', '3200', '0', null);
-INSERT INTO `tb_matpel` VALUES ('3-002', 'IMLA’', '0', '0', '0', null);
 INSERT INTO `tb_matpel` VALUES ('3-003', 'BHS. ARAB (MADARIJ DURUSUL AROBIYAH I)', '4500', '6400', '0', null);
 INSERT INTO `tb_matpel` VALUES ('3-004', 'TAJWID (TUHFATUL ATFAL)', '1375', '2600', '0', null);
 INSERT INTO `tb_matpel` VALUES ('3-005', 'TAFSIR (IBRIZ I)', '4760', '6500', '0', null);
@@ -281,7 +299,6 @@ INSERT INTO `tb_matpel` VALUES ('5-005', 'TAJWID (HIDAYATUL MUSTAFID)', '2750', 
 INSERT INTO `tb_matpel` VALUES ('5-006', 'TAFSIR (IBRIZ III)', '4760', '6500', '0', null);
 INSERT INTO `tb_matpel` VALUES ('5-007', 'HADITS (BULUGHUL MAROM)', '13475', '18500', '0', null);
 INSERT INTO `tb_matpel` VALUES ('6-001', 'NAHWU (IMRITHI)', '21600', '25900', '0', null);
-INSERT INTO `tb_matpel` VALUES ('6-002', 'HADITS (BULUGHUL MAROM)', '0', '0', '0', null);
 INSERT INTO `tb_matpel` VALUES ('6-003', 'SHOROF (MAQSHUD)', '9000', '11400', '0', null);
 INSERT INTO `tb_matpel` VALUES ('6-004', 'TAUHID (TIJANNUD DARORI)', '1375', '2700', '0', null);
 INSERT INTO `tb_matpel` VALUES ('7-001', 'NAHWU (ALFIYAH IBNU MALIK I)', '16000', '20800', '0', null);
@@ -291,7 +308,6 @@ INSERT INTO `tb_matpel` VALUES ('7-004', 'TAUHID (FATHUL MAJID I)', '3600', '510
 INSERT INTO `tb_matpel` VALUES ('7-005', 'USHUL FIQIH (MABADI’UL AWALIYAH)', '3575', '5500', '0', null);
 INSERT INTO `tb_matpel` VALUES ('8-001', 'NAHWU (ALFIYAH IBNU MALIK II)', '16000', '20800', '0', null);
 INSERT INTO `tb_matpel` VALUES ('8-002', 'QOIDAH FIQHIYAH (AS-SULAM)', '7150', '10200', '0', null);
-INSERT INTO `tb_matpel` VALUES ('8-003', 'TAUHID (FATHUL MAJID II)', '0', '0', '0', null);
 INSERT INTO `tb_matpel` VALUES ('9-001', 'BALAGHOH (JAWAHIRUL MAKNUN)', '14850', '22100', '0', null);
 INSERT INTO `tb_matpel` VALUES ('9-002', 'ILMU HADITS (MANHALUL LATIF)', '28600', '37700', '0', null);
 INSERT INTO `tb_matpel` VALUES ('9-003', 'ILMU FALAK (FATHUL ROUF)', '2240', '3200', '0', null);
@@ -2279,6 +2295,26 @@ INSERT INTO `tb_santri` VALUES ('0901047', 'Riwati Munawir', 'W II B', 'W III', 
 INSERT INTO `tb_santri` VALUES ('0901048', 'Sultonul Mu\'allifin', 'W II A', 'W III', 'A.15', '91');
 INSERT INTO `tb_santri` VALUES ('0901049', 'Syaichon Yusuf Efendi', 'W II B', 'W III', 'A.17', '91');
 INSERT INTO `tb_santri` VALUES ('0901050', 'Cahya Bagus Sanjaya', '2 A', '3 A', 'F.26', '31');
+
+-- ----------------------------
+-- Table structure for `tb_user`
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_user`;
+CREATE TABLE `tb_user` (
+  `nama` varchar(50) DEFAULT NULL,
+  `pass` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of tb_user
+-- ----------------------------
+INSERT INTO `tb_user` VALUES ('root@localhost', '202cb962ac59075b964b07152d234b70');
+
+-- ----------------------------
+-- View structure for `vwjualkitab`
+-- ----------------------------
+DROP VIEW IF EXISTS `vwjualkitab`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `vwjualkitab` AS select `tb_jual_global`.`id_Trans` AS `id_Trans`,`tb_jual_global`.`Tanggal` AS `Tanggal`,`tb_jual_global`.`jam` AS `jam`,`tb_jual_global`.`Total` AS `Total`,`tb_santri`.`NIS` AS `NIS`,`tb_santri`.`Nama` AS `Nama`,`tb_santri`.`KelasLama` AS `KelasLama`,`tb_santri`.`Kamar` AS `Kamar`,`tb_santri`.`idPaket` AS `idPaket`,`tb_jual_rinci`.`no` AS `no`,`tb_jual_rinci`.`PID` AS `PID`,`tb_matpel`.`MatPel` AS `MatPel`,`tb_jual_rinci`.`HPP` AS `HPP`,`tb_jual_rinci`.`Harga` AS `Harga`,`tb_jual_rinci`.`Buy` AS `Buy`,`tb_santri`.`KelasBaru` AS `KelasBaru`,`tb_jual_global`.`Bayar` AS `Bayar`,`tb_jual_global`.`Kembali` AS `Kembali` from (((`tb_jual_global` join `tb_jual_rinci` on((`tb_jual_global`.`id_Trans` = `tb_jual_rinci`.`id_Trans`))) join `tb_santri` on((`tb_santri`.`NIS` = `tb_jual_global`.`NIS`))) join `tb_matpel` on((`tb_matpel`.`PID` = `tb_jual_rinci`.`PID`))) ;
 
 -- ----------------------------
 -- View structure for `vwpaketkitab`

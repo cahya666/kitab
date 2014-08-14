@@ -1,0 +1,52 @@
+
+                       Daftar Kelas
+
+  No NIS         Nama         Kama Kls LKls    Trans.
+  1 050100A. Fathul Bari      F.05  4 B 5 A    Belum
+  2 050100Abd. Rahman Wahid   A.17  4 A 5 A    Belum
+  3 050100Abdul Hamid         F.09  4 C 5 A    Belum
+  4 050100Abdul Rochim        F.19  4 A 5 A    Belum
+  5 050100Abdul Wahid         F.19  4 B 5 A    Belum
+  6 050100Ahmad Amirul Hakim  A.03  4 B 5 A    Belum
+  7 050100Ahmad Ichwan Afandi A.09  4 D 5 A    Belum
+  8 050100Akhmad Wildhan Jami A.10  4 C 5 A    Belum
+  9 050100Dedi Mulyono        A.10  5 A 5 A    Belum
+  10050101Fiqi Hasanahdlo     A.13  4 D 5 A    Belum
+  11050101Hadi Mulyono        F.22  4 A 5 A    Belum
+  12050101Hafifudin           E.15  4 B 5 A    Belum
+  13050101Heri Sutiro         F.27  4 C 5 A    Belum
+  14050101M. Afif Maulana Ish A.07  5 C 5 A    Belum
+  15050101M. Anton Efendi     E.14  4 A 5 A    Belum
+  16050101M. Athoillah        F.29  4 B 5 A    Belum
+  17050101M. Fajar shodiq     A.15  4 D 5 A    Belum
+  18050101M. Ficky Wijaya     E.29  5 B 5 A    Belum
+  19050101M. Khoironi         F.22  4 C 5 A    Belum
+  20050102M. Khoirur Roziqin  A.06  4 D 5 A    Belum
+  21050102M. Kholil           A.07  4 A 5 A    Belum
+  22050102M. Nur Hilmi        F.23  4 A 5 A    Belum
+  23050102M. Sauqi Sholikhudi E.08  4 C 5 A    Belum
+  24050102M. Torikil Huda     A.07  4 B 5 A    Belum
+  25050102M. Umar             E.21  4 B 5 A    Belum
+  26050102Moch. Fakhrul Efend A.04  4 C 5 A    Belum
+  27050102Mochamad Nasrul Fik A.15  4 A 5 A    Belum
+  28050102Much. Irfan Santoso A.08  4 A 5 A    Belum
+  29050102Muhammad Alfian Ari A.13  4 B 5 A TR-20140814-
+  30050103Muhammad Chasan Cha F.09  4 C 5 A    Belum
+  31050103Muhammad Chasan Ma' A.07  4 D 5 A    Belum
+  32050103Muhammad Khafid Ain A.17  4 B 5 A    Belum
+  33050103Mursalin            F.10  4 C 5 A    Belum
+  34050103Murtadho            F.26  4 D 5 A    Belum
+  35050103Nur Cholis          F.27  4 A 5 A    Belum
+  36050103Nur Muchyiddin      F.22  4 C 5 A    Belum
+  37050103Ramadhan Muhtadin   E.09  4 A 5 A    Belum
+  38050103Rizal Umami         A.03  4 C 5 A    Belum
+  39050103Shofa Khoiruddin    A.04  4 A 5 A    Belum
+  40050104Sobri Sukrillah     E.26  4 B 5 A    Belum
+  41050104Wahyu Ardiansyah    F.09  4 B 5 A    Belum
+  42050104Wakhid Kharissudinn A.07  4 C 5 A    Belum
+  43050104Yus Yunus Pradana D F.05  4 A 5 A    Belum
+  44050104Zainur Rofiq Khabib E.16  4 C 5 A    Belum
+
+  14/08/14 17:15                           Page 1 of 1
+
+
