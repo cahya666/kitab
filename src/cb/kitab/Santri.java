@@ -33,6 +33,7 @@ import net.sf.jasperreports.view.JasperViewer;
 public class Santri extends javax.swing.JFrame {
     Koneksi kn = new Koneksi();
     ResultSet rs;
+    ListTableModel mdl;
     JasperReport jasperReport;
     JasperDesign jasperDesign;
     JasperPrint jasperPrint;
@@ -118,6 +119,7 @@ public class Santri extends javax.swing.JFrame {
             }
         });
 
+        btnEdit.setMnemonic('e');
         btnEdit.setText("Edit");
         btnEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +127,7 @@ public class Santri extends javax.swing.JFrame {
             }
         });
 
+        btnBaru.setMnemonic('b');
         btnBaru.setText("Baru");
         btnBaru.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -132,6 +135,7 @@ public class Santri extends javax.swing.JFrame {
             }
         });
 
+        btnHapus.setMnemonic('h');
         btnHapus.setText("Hapus");
         btnHapus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -214,7 +218,7 @@ public class Santri extends javax.swing.JFrame {
     }//GEN-LAST:event_txCariNamaActionPerformed
 
     private void btnCetakAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakAllActionPerformed
-        String SQL = "SELECT * from vw_santri";
+        String SQL = "SELECT * from vw_santri order by KelasBaru";
         _cetakSiswa(SQL,"kelasAll.jrxml");
     }//GEN-LAST:event_btnCetakAllActionPerformed
 
@@ -338,9 +342,11 @@ public class Santri extends javax.swing.JFrame {
         String SQL = "SELECT * from vw_santri where KelasBaru ='"+kondisi+"'";
         try {
             rs = kn.stmt.executeQuery(SQL);
-            ListTableModel mdl = ListTableModel.createModelFromResultSet(rs);
+            mdl = ListTableModel.createModelFromResultSet(rs);
             
             tblSantri.setModel(mdl);
+            tblSantri.changeSelection(0, 0, false, false);
+
         } catch (SQLException ex) {
             Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -350,8 +356,10 @@ public class Santri extends javax.swing.JFrame {
         String SQL = "SELECT * from vw_santri where Nama like '%"+kondisi+"%'";
         try {
             rs = kn.stmt.executeQuery(SQL);
-            ListTableModel mdl = ListTableModel.createModelFromResultSet(rs);
+            mdl = ListTableModel.createModelFromResultSet(rs);
+            
             tblSantri.setModel(mdl);
+            tblSantri.changeSelection(0, 0, false, false);
         } catch (SQLException ex) {
             Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
         }

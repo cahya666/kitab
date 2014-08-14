@@ -1,5 +1,5 @@
 
-                       Daftar Kelas
+                  Daftar Transaksi Kelas
 
   No NIS         Nama         Kama Kls LKls    Trans.
   1 050100A. Fathul Bari      F.05  4 B 5 A    Belum
@@ -47,6 +47,6 @@
   43050104Yus Yunus Pradana D F.05  4 A 5 A    Belum
   44050104Zainur Rofiq Khabib E.16  4 C 5 A    Belum
 
-  14/08/14 17:15                           Page 1 of 1
+  14/08/14 17:39                           Page 1 of 1
 
 

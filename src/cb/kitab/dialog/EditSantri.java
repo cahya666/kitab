@@ -148,27 +148,24 @@ public class EditSantri extends javax.swing.JDialog {
        try {
            generateNIS((String) cbBaru.getSelectedItem(),baru);
            if (baru) {               
-               kn.conn.setAutoCommit(false);
-
+            
                kn.stmt.executeUpdate("insert into tb_santri(NIS,Nama,Kamar,KelasLama,KelasBaru,idPaket) values "+
                        "('"+txNIS.getText()+"','"+txNama.getText()+"','"+
                        txKamar.getText()+"','"+cbLama.getSelectedItem()+"','"+
                        cbBaru.getSelectedItem()+"','"+idPaket+"')");
-               kn.conn.commit();
                JOptionPane.showMessageDialog(rootPane, "Data Berhasil disimpan...");
 
            } else {
-               kn.conn.setAutoCommit(false);
-
+            
                kn.stmt.executeUpdate("update tb_santri set Nama= '"+txNama.getText()+
                        "',Kamar='"+txKamar.getText()+"',KelasLama='"+cbLama.getSelectedItem()+
                        "',KelasBaru='"+cbBaru.getSelectedItem()+"',idPaket= '"+idPaket+
                        "' where NIS= '"+txNIS.getText()+"'");
                
-               kn.conn.commit();
                JOptionPane.showMessageDialog(rootPane, "Data Berhasil diUbah...");
 
            } 
+           this.dispose();
        } catch (SQLException ex) {
              Logger.getLogger(EditSantri.class.getName()).log(Level.SEVERE, null, ex);
        }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
-	<queryString language="SQL">
-		<![CDATA[select * from vw_santri]]>
+	<subDataset name="dataset1"/>
+	<queryString>
+		<![CDATA[select * from vw_santri
+]]>
 	</queryString>
 	<field name="NIS" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -21,19 +23,22 @@
 	<field name="idPaket" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
-	<group name="KelasBaru">
+	<field name="Trans" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="KelasBaru" isStartNewPage="true">
 		<groupExpression><![CDATA[$F{KelasBaru}]]></groupExpression>
 		<groupHeader>
 			<band height="27" splitType="Stretch">
 				<staticText>
-					<reportElement mode="Opaque" x="0" y="0" width="82" height="27" forecolor="#FFFFFF" backcolor="#000000"/>
+					<reportElement mode="Opaque" x="1" y="0" width="118" height="27" forecolor="#FFFFFF" backcolor="#000000"/>
 					<textElement>
 						<font size="18"/>
 					</textElement>
-					<text><![CDATA[Kelas]]></text>
+					<text><![CDATA[Kelas Baru]]></text>
 				</staticText>
 				<textField>
-					<reportElement mode="Opaque" x="82" y="0" width="473" height="27" forecolor="#FFFFFF" backcolor="#000000"/>
+					<reportElement mode="Opaque" x="119" y="0" width="433" height="27" forecolor="#FFFFFF" backcolor="#000000"/>
 					<textElement>
 						<font size="18" isBold="true"/>
 					</textElement>
@@ -42,111 +47,123 @@
 			</band>
 		</groupHeader>
 		<groupFooter>
-			<band height="8" splitType="Stretch">
-				<line direction="BottomUp">
-					<reportElement key="line" x="1" y="4" width="554" height="1"/>
-				</line>
-			</band>
+			<band height="19" splitType="Stretch"/>
 		</groupFooter>
 	</group>
 	<background>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="58" splitType="Stretch">
+		<band height="42" splitType="Stretch">
 			<line>
-				<reportElement x="0" y="8" width="555" height="1"/>
-			</line>
-			<line>
-				<reportElement positionType="FixRelativeToBottom" x="0" y="51" width="555" height="1"/>
+				<reportElement x="0" y="5" width="555" height="1"/>
 			</line>
 			<staticText>
-				<reportElement x="65" y="13" width="424" height="35"/>
+				<reportElement x="65" y="6" width="424" height="28"/>
 				<textElement textAlignment="Center">
-					<font size="26" isBold="true"/>
+					<font size="22" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Daftar Kelas]]></text>
+				<text><![CDATA[Daftar Transaksi Kelas]]></text>
 			</staticText>
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="34" width="555" height="1"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
 		<band splitType="Stretch"/>
 	</pageHeader>
 	<columnHeader>
-		<band height="18" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="0" width="111" height="18" forecolor="#FFFFFF" backcolor="#999999"/>
+				<reportElement mode="Opaque" x="31" y="0" width="59" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[NIS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="111" y="0" width="111" height="18" forecolor="#FFFFFF" backcolor="#999999"/>
+				<reportElement mode="Opaque" x="90" y="0" width="218" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Nama]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="222" y="0" width="111" height="18" forecolor="#FFFFFF" backcolor="#999999"/>
+				<reportElement mode="Opaque" x="308" y="0" width="66" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Kelas Lama]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="333" y="0" width="111" height="18" forecolor="#FFFFFF" backcolor="#999999"/>
+				<reportElement mode="Opaque" x="374" y="0" width="41" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<text><![CDATA[Kamar]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="444" y="0" width="111" height="18" forecolor="#FFFFFF" backcolor="#999999"/>
+				<reportElement mode="Opaque" x="415" y="0" width="137" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<text><![CDATA[Paket]]></text>
+				<text><![CDATA[Trans]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="1" y="0" width="30" height="16" forecolor="#FFFFFF" backcolor="#999999"/>
+				<textElement textAlignment="Center">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[No]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="20" splitType="Stretch">
+		<band height="16" splitType="Stretch">
 			<textField>
-				<reportElement x="0" y="0" width="111" height="20"/>
+				<reportElement x="31" y="0" width="59" height="16"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{NIS}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="111" y="0" width="111" height="20"/>
+				<reportElement x="90" y="0" width="218" height="16"/>
+				<box leftPadding="5"/>
 				<textElement>
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{Nama}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="222" y="0" width="111" height="20"/>
+				<reportElement x="308" y="0" width="66" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{KelasLama}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="333" y="0" width="111" height="20"/>
+				<reportElement x="374" y="0" width="41" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
 				<textFieldExpression class="java.lang.String"><![CDATA[$F{Kamar}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="444" y="0" width="111" height="20"/>
+				<reportElement x="415" y="0" width="137" height="16"/>
 				<textElement textAlignment="Center">
 					<font size="12"/>
 				</textElement>
-				<textFieldExpression class="java.lang.Integer"><![CDATA[$F{idPaket}]]></textFieldExpression>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{Trans}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="30" height="16"/>
+				<box leftPadding="5"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{KelasBaru_COUNT}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
