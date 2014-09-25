@@ -1,1 +1,7 @@
 /dist/
+/nbproject/
+/build/
+/build.xml
+/cetak.prn
+/koneksi.cb
+/manifest.mf
