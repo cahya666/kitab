@@ -45,10 +45,6 @@ public class Kebutuhan extends javax.swing.JFrame {
     Koneksi kn = new Koneksi();
     private DecimalFormat numFormat = new DecimalFormat("#,###,###");
     private boolean Showlaba = false;
-    JasperReport jasperReport;
-    JasperDesign jasperDesign;
-    JasperPrint jasperPrint;
-    Map<String, Object> param = new HashMap<String, Object>();
 
 
     /**
@@ -75,7 +71,6 @@ public class Kebutuhan extends javax.swing.JFrame {
         tblFooter = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTblKeb = new javax.swing.JTable();
-        btnCetak = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Kebutuhan");
@@ -167,13 +162,6 @@ public class Kebutuhan extends javax.swing.JFrame {
 
             jPanel1.add(jScrollPane1, java.awt.BorderLayout.CENTER);
 
-            btnCetak.setText("Cetak");
-            btnCetak.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    btnCetakActionPerformed(evt);
-                }
-            });
-
             javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
             getContentPane().setLayout(layout);
             layout.setHorizontalGroup(
@@ -184,8 +172,6 @@ public class Kebutuhan extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE)
                         .addGroup(layout.createSequentialGroup()
                             .addComponent(btnRefresh)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnCetak)
                             .addGap(0, 0, Short.MAX_VALUE)))
                     .addContainerGap())
             );
@@ -193,9 +179,7 @@ public class Kebutuhan extends javax.swing.JFrame {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addContainerGap()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnRefresh)
-                        .addComponent(btnCetak))
+                    .addComponent(btnRefresh)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
                     .addContainerGap())
@@ -223,12 +207,6 @@ public class Kebutuhan extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jTblKebKeyPressed
-
-    private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
-        String SQL = "select * from vwPenjualan";
-        _cetakData(SQL,"kelas.jrxml");
-
-    }//GEN-LAST:event_btnCetakActionPerformed
     
     private Integer sumTbl(int col) {
         Integer total = 0;
@@ -299,7 +277,6 @@ public class Kebutuhan extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCetak;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -379,30 +356,6 @@ public class Kebutuhan extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Kebutuhan.class.getName()).log(Level.SEVERE, null, ex);
         }    
-    }
-        private void _cetakData(String SQL,String rpt) {
-        String path = System.getProperties().getProperty("java.class.path")
-                .split(";")[System.getProperties().getProperty("java.class.path")
-                .split(";").length - 1] + "/";
-        try {
-            //File file = new File(path+"laporan/kelas.jrxml");
-            InputStream file= getClass().getResourceAsStream("/cb/kitab/laporan/"+rpt);
-            jasperDesign = JRXmlLoader.load(file);
-            param.clear();
-            
-            rs = kn.stmt.executeQuery(SQL);  
-
-            JRResultSetDataSource jrRS = new JRResultSetDataSource (rs);            
-            jasperReport = JasperCompileManager.compileReport(jasperDesign);
-            jasperPrint = JasperFillManager.fillReport(jasperReport, param, jrRS);
-            
-            JasperViewer.viewReport(jasperPrint, false);
-            
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 }
