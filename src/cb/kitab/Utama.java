@@ -6,22 +6,8 @@
 
 package cb.kitab;
 
-/**
- *
- * @author sanjaya
- */
 public class Utama {
-    public String hasilCari;
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-
-        
-       
-        
-        //System.out.println(cr.getHasil(0));
-        
    }
     
 }

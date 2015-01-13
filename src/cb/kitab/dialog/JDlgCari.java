@@ -24,7 +24,7 @@ import java.util.List;
  * @author sanjaya
  */
 public class JDlgCari extends javax.swing.JDialog {
-    private Koneksi kn = new Koneksi();
+    private final Koneksi kn = new Koneksi();
     private ResultSet rs;
     protected String _query;
     protected String filter;
@@ -38,8 +38,8 @@ public class JDlgCari extends javax.swing.JDialog {
         initComponents();
     }
     
-    public JDlgCari(java.awt.Frame parent, boolean modal,String sql,String filter) {
-        super(parent, modal);
+    public JDlgCari(java.awt.Frame parent, String sql,String filter) {
+        super(parent, true);
         lookandfeels();
 
         KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
@@ -247,7 +247,7 @@ public class JDlgCari extends javax.swing.JDialog {
     }
     
     public String getHasil(Integer col){
-        return (String) jTblCari.getValueAt(jTblCari.getSelectedRow(), col);        
+        return jTblCari.getValueAt(jTblCari.getSelectedRow(), col).toString();        
     }
     
 

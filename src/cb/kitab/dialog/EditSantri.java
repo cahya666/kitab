@@ -21,22 +21,22 @@ import javax.swing.JOptionPane;
 public class EditSantri extends javax.swing.JDialog {
     private Koneksi kn = new Koneksi();
     private ResultSet rs;
-    private boolean baru = true;
     private String idPaket;
+    private String id="";
     
     /**
      * Creates new form EditSantri
      */
-    public EditSantri(java.awt.Frame parent, boolean modal,boolean Baru, String NIS) {
-        super(parent, modal);
+    public EditSantri(java.awt.Frame parent, String id) {
+        super(parent, true);
         initComponents();
         setLocationRelativeTo(null);
-        this.baru = Baru;
+        this.id =  id;
         loadKelas();
-        tampilData(NIS);
+        tampilData(id);
     }
-    public EditSantri(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public EditSantri(java.awt.Frame parent) {
+        super(parent, true);
         initComponents();
         setLocationRelativeTo(null);
         loadKelas();
@@ -50,34 +50,23 @@ public class EditSantri extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txNIS = new javax.swing.JTextField();
         txNama = new javax.swing.JTextField();
-        cbLama = new javax.swing.JComboBox();
+        cbKelas = new javax.swing.JComboBox();
         txKamar = new javax.swing.JTextField();
-        cbBaru = new javax.swing.JComboBox();
         btnSimpan = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        jLabel1.setText("NIS");
-
         jLabel2.setText("Nama");
 
-        jLabel3.setText("Kelas Lama");
+        jLabel3.setText("Kelas");
 
-        jLabel4.setText("Kelas Baru");
-
-        txNIS.setFocusable(false);
-
-        cbLama.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
-
-        cbBaru.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
+        cbKelas.setEditable(true);
+        cbKelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { }));
 
         btnSimpan.setText("Simpan");
         btnSimpan.addActionListener(new java.awt.event.ActionListener() {
@@ -99,28 +88,20 @@ public class EditSantri extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cbLama, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txNIS)
+                    .addComponent(cbKelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txKamar)
-                    .addComponent(txNama)
-                    .addComponent(cbBaru, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txNama))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txNIS, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txNama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -131,12 +112,8 @@ public class EditSantri extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(cbLama, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(cbBaru, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(cbKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
                 .addComponent(btnSimpan)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -146,21 +123,19 @@ public class EditSantri extends javax.swing.JDialog {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
        try {
-           generateNIS((String) cbBaru.getSelectedItem(),baru);
-           if (baru) {               
+           //generateNIS((String) cbKelas.getSelectedItem(),true);
+           if (id.equals("")) {               
             
-               kn.stmt.executeUpdate("insert into tb_santri(NIS,Nama,Kamar,KelasLama,KelasBaru,idPaket) values "+
-                       "('"+txNIS.getText()+"','"+txNama.getText()+"','"+
-                       txKamar.getText()+"','"+cbLama.getSelectedItem()+"','"+
-                       cbBaru.getSelectedItem()+"','"+idPaket+"')");
+               kn.stmt.executeUpdate("insert into tb_pelanggan(Nama,Kamar,Kelas) values "+
+                       "('"+txNama.getText()+"','"+txKamar.getText()+"','"+
+                       cbKelas.getSelectedItem()+"')");
                JOptionPane.showMessageDialog(rootPane, "Data Berhasil disimpan...");
 
            } else {
             
-               kn.stmt.executeUpdate("update tb_santri set Nama= '"+txNama.getText()+
-                       "',Kamar='"+txKamar.getText()+"',KelasLama='"+cbLama.getSelectedItem()+
-                       "',KelasBaru='"+cbBaru.getSelectedItem()+"',idPaket= '"+idPaket+
-                       "' where NIS= '"+txNIS.getText()+"'");
+               kn.stmt.executeUpdate("update tb_pelanggan set Nama= '"+txNama.getText()+
+                       "',Kamar='"+txKamar.getText()+"',Kelas='"+cbKelas.getSelectedItem()+
+                       "' where id= '"+id+"'");
                
                JOptionPane.showMessageDialog(rootPane, "Data Berhasil diUbah...");
 
@@ -201,7 +176,7 @@ public class EditSantri extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EditSantri dialog = new EditSantri(new javax.swing.JFrame(), true);
+                EditSantri dialog = new EditSantri(new javax.swing.JFrame());
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -215,24 +190,19 @@ public class EditSantri extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSimpan;
-    private javax.swing.JComboBox cbBaru;
-    private javax.swing.JComboBox cbLama;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox cbKelas;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField txKamar;
-    private javax.swing.JTextField txNIS;
     private javax.swing.JTextField txNama;
     // End of variables declaration//GEN-END:variables
 
     private void loadKelas() {
          try {
-            rs = kn.stmt.executeQuery("select kelas from tbPaketSiswa");
+            rs = kn.stmt.executeQuery("select distinct kelas from tb_pelanggan");
             while (rs.next()) {                
-                cbLama.addItem(rs.getObject("kelas"));
-                cbBaru.addItem(rs.getObject("kelas"));
+                cbKelas.addItem(rs.getObject("kelas"));
             }
             
         } catch (SQLException ex) {
@@ -240,15 +210,13 @@ public class EditSantri extends javax.swing.JDialog {
         }
     }
 
-    private void tampilData(String NIS) {
+    private void tampilData(String id) {
          try {
-            rs = kn.stmt.executeQuery("select * from tb_santri where NIS ='"+NIS+"'");
+            rs = kn.stmt.executeQuery("select * from tb_pelanggan where id ='"+id+"'");
             while (rs.next()) {                
-                txNIS.setText(rs.getString("NIS"));
                 txNama.setText(rs.getString("Nama"));
                 txKamar.setText(rs.getString("Kamar"));
-                cbLama.setSelectedItem(rs.getObject("KelasLama"));
-                cbBaru.setSelectedItem(rs.getObject("KelasBaru"));
+                cbKelas.setSelectedItem(rs.getObject("Kelas"));
             }
             
         } catch (SQLException ex) {
@@ -257,8 +225,8 @@ public class EditSantri extends javax.swing.JDialog {
 
     }
 
-    private void generateNIS(String kelas,boolean Baru) {
-        String kode = "",kd = "";
+    private String generateNIS(String kelas,boolean Baru) {
+        String kode = "",kd = "", hasil="";
         int tot = 0;
         try {
             rs = kn.stmt.executeQuery("select * from tbPaketSiswa where kelas ='"+kelas+"'");
@@ -277,12 +245,13 @@ public class EditSantri extends javax.swing.JDialog {
                 if (tot<100)   {kd="0";}
                 if (tot<10)    {kd="00";}
 
-                txNIS.setText(kode+kd+tot);
+                hasil= kode+kd+tot;
             }
             
             
         } catch (SQLException ex) {
             Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
         }        
+        return hasil;
     }
 }

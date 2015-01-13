@@ -47,7 +47,7 @@ public class Santri extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setExtendedState(getExtendedState() | MAXIMIZED_BOTH);
         _tampilKelas();
-        _cariNama("");
+        //_cariNama("");
     }
 
     /**
@@ -60,7 +60,6 @@ public class Santri extends javax.swing.JFrame {
     private void initComponents() {
 
         cbKelas = new javax.swing.JComboBox();
-        btnLihat = new javax.swing.JButton();
         btnCetak = new javax.swing.JButton();
         txCariNama = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -73,13 +72,11 @@ public class Santri extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Data Pelanggan");
 
-        cbKelas.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        btnLihat.setText("Lihat");
-        btnLihat.addActionListener(new java.awt.event.ActionListener() {
+        cbKelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLihatActionPerformed(evt);
+                cbKelasActionPerformed(evt);
             }
         });
 
@@ -165,16 +162,12 @@ public class Santri extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(8, 8, 8)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(cbKelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnLihat)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnCetak))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(txCariNama)
-                                .addGap(9, 9, 9)
-                                .addComponent(btnCetakAll)))))
+                            .addComponent(cbKelas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txCariNama))
+                        .addGap(9, 9, 9)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnCetakAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnCetak, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -183,7 +176,6 @@ public class Santri extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbKelas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLihat)
                     .addComponent(btnCetak)
                     .addComponent(jLabel2))
                 .addGap(3, 3, 3)
@@ -204,10 +196,6 @@ public class Santri extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnLihatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLihatActionPerformed
-        _lihatKelas((String) cbKelas.getSelectedItem());        
-    }//GEN-LAST:event_btnLihatActionPerformed
-
     private void btnCetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCetakActionPerformed
         String SQL = "SELECT * from vw_santri where KelasBaru ='"+cbKelas.getSelectedItem().toString()+"'";
         _cetakSiswa(SQL,"kelas.jrxml");
@@ -223,26 +211,25 @@ public class Santri extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCetakAllActionPerformed
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
-        EditSantri es= new EditSantri(this, true, false, 
-                (String) tblSantri.getValueAt(tblSantri.getSelectedRow(), 0));
+        EditSantri es= new EditSantri(this, tblSantri.getValueAt(tblSantri.getSelectedRow(), 0).toString());
         es.setTitle("Edit Data Santri");
         es.setVisible(true);
     }//GEN-LAST:event_btnEditActionPerformed
 
     private void btnBaruActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBaruActionPerformed
-        EditSantri es= new EditSantri(this, true);
+        EditSantri es= new EditSantri(this);
         es.setTitle("Tambah Data Santri");
         es.setVisible(true);
     }//GEN-LAST:event_btnBaruActionPerformed
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
-        String NIS = (String) tblSantri.getValueAt(tblSantri.getSelectedRow(),0);
+        String id = tblSantri.getValueAt(tblSantri.getSelectedRow(),0).toString();
         
         if (JOptionPane.showConfirmDialog(rootPane, "Hapus Data ini?", 
                 "Hapus Data", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
             try {
                 kn.conn.setAutoCommit(false);                
-                kn.stmt.executeUpdate("delete from tb_santri where NIS= '"+NIS+"'");
+                kn.stmt.executeUpdate("delete from tb_pelanggan where id= '"+id+"'");
                 kn.conn.commit();
                 JOptionPane.showMessageDialog(rootPane, "Hapus Data Berhasil....");
             } catch (SQLException ex) {
@@ -250,6 +237,15 @@ public class Santri extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnHapusActionPerformed
+
+    private void cbKelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbKelasActionPerformed
+        if (cbKelas.getSelectedIndex()!=0){
+            _lihatKelas((String) cbKelas.getSelectedItem());        
+        } else
+        if (cbKelas.getSelectedIndex()==0){
+            _cariNama("");        
+        }
+    }//GEN-LAST:event_cbKelasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,7 +288,6 @@ public class Santri extends javax.swing.JFrame {
     private javax.swing.JButton btnCetakAll;
     private javax.swing.JButton btnEdit;
     private javax.swing.JButton btnHapus;
-    private javax.swing.JButton btnLihat;
     private javax.swing.JComboBox cbKelas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -304,10 +299,16 @@ public class Santri extends javax.swing.JFrame {
     private void _tampilKelas() {
         try {
             cbKelas.removeAllItems();
-            rs = kn.stmt.executeQuery("select kelas from tbPaketSiswa");
+            
+            cbKelas.addItem("-- Pilih Kelas --");
+            
+            rs = kn.stmt.executeQuery("select distinct kelas from tb_pelanggan");
             while (rs.next()) {                
                 cbKelas.addItem(rs.getObject("kelas"));
             }
+            
+            cbKelas.setSelectedIndex(0);
+            
         } catch (SQLException ex) {
             Logger.getLogger(Santri.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -339,7 +340,7 @@ public class Santri extends javax.swing.JFrame {
     }
 
     private void _lihatKelas(String kondisi) {
-        String SQL = "SELECT * from vw_santri where KelasBaru ='"+kondisi+"'";
+        String SQL = "SELECT * from tb_pelanggan where Kelas ='"+kondisi+"'";
         try {
             rs = kn.stmt.executeQuery(SQL);
             mdl = ListTableModel.createModelFromResultSet(rs);
@@ -353,7 +354,7 @@ public class Santri extends javax.swing.JFrame {
     }
 
     private void _cariNama(String kondisi) {
-        String SQL = "SELECT * from vw_santri where Nama like '%"+kondisi+"%'";
+        String SQL = "SELECT * from tb_pelanggan where Nama like '%"+kondisi+"%'";
         try {
             rs = kn.stmt.executeQuery(SQL);
             mdl = ListTableModel.createModelFromResultSet(rs);
